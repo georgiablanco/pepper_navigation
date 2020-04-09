@@ -10,7 +10,22 @@
         <remap from="image_rect" to="/naoqi_driver/camera/depth/image_raw"/>
     </node>
 
-<!--    &lt;!&ndash; Pointcloud -> Laserscan &ndash;&gt;-->
+
+
+    <!-- Run octomap server-->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+        <param name="resolution" value="0.2" /> <!-- changed value from 0.05-->
+        <param name="frame_id" type="string" value="odom" />
+
+    <!-- maximum range to integrate (speedup!) -->
+        <param name="sensor_model/max_range" value="5.0" />
+
+    <!-- data source to integrate (PointCloud2) -->
+        <remap from="/cloud_in" to="points" />
+    </node>
+
+
+    <!--    &lt;!&ndash; Pointcloud -> Laserscan &ndash;&gt;-->
 <!--    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pepper_fake_laser">-->
 <!--        <remap from="cloud_in" to="points" />-->
 <!--        <param name="scan_time" type="double" value="0.2" />-->
@@ -40,18 +55,5 @@
 <!--        <param name="ymax" value="5.0" />-->
 <!--        <param name="delta" value="0.04" />-->
 <!--    </node>-->
-
-    <!-- Run octomap server-->
-    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
-        <param name="resolution" value="0.2" /> <!-- changed value from 0.05-->
-        <param name="frame_id" type="string" value="odom" />
-
-    <!-- maximum range to integrate (speedup!) -->
-        <param name="sensor_model/max_range" value="5.0" />
-
-    <!-- data source to integrate (PointCloud2) -->
-        <remap from="/cloud_in" to="points" />
-<!--        <remap from="/cloud_in" to="depth_registered/points" />-->
-    </node>
 
 </launch>
