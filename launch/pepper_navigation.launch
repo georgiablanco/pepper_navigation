@@ -1,6 +1,6 @@
 <launch>
     <!-- PEPPER SIMULATION -->
-    <node pkg="pepper_navigation" name="pepper_simulation" type="pepper_ros_simu.py"/>
+<!--    <node pkg="pepper_navigation" name="pepper_simulation" type="pepper_ros_simu.py"/>-->
 
     <!-- Start RViz -->
     <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_mapping.rviz"/>

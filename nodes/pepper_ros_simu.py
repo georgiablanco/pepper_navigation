@@ -17,14 +17,16 @@ if __name__ == "__main__":
 
     # pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
     urdf = pybullet.loadURDF(
-        "/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables.urdf",
-        globalScaling=0.5)
+        "/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/restaurant.urdf")
+    # sdf = pybullet.loadSDF("/home/georgiablanco/Documents/gazebo_worlds/world1.sdf")
 
 
     wrap = PepperRosWrapper()
     wrap.launchWrapper(pepper, "/naoqi_driver")
 
     pepper.subscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
+    pepper.subscribeLaser()
+    pepper.goToPosture("Stand", 0.6)
 
     try:
         rospy.spin()

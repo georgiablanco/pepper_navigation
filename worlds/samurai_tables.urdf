@@ -9,7 +9,7 @@
     <visual>
       <origin rpy="1.5707963 0 0" xyz="0 0 0"/>
       <geometry>
-				<mesh filename="samurai_monastry.obj" scale="1 1 1"/>
+				<mesh filename="samurai_monastry.obj" scale="0.8 0.8 0.8"/>
       </geometry>
        <material name="white">
         <color rgba="1 1 1 1"/>
@@ -27,7 +27,7 @@
     <collision concave="yes">
       <origin rpy="1.5707963 0 0" xyz="0 0 0"/>
      <geometry>
-				<mesh filename="samurai_monastry.obj" scale="1 1 1"/>
+				<mesh filename="samurai_monastry.obj" scale="0.8 0.8 0.8"/>
       </geometry>
            <geometry>
 				<mesh filename="tables.obj" scale="1 1 1"/>
