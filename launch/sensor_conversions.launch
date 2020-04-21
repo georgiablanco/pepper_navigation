@@ -1,0 +1,48 @@
+<launch>
+        <!-- MAP TO ODOM -->
+<!--    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />-->
+
+
+    <!-- Depth Image -> Pointcloud -->
+    <node pkg="nodelet" type="nodelet" args="manager" name="depth_image_nodelet_manager" output="screen"/>
+    <node pkg="nodelet" type="nodelet" name="pepper_pointcloud" args="load depth_image_proc/point_cloud_xyz depth_image_nodelet_manager --no-bond">
+        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>
+        <remap from="image_rect" to="/naoqi_driver/camera/depth/image_raw"/>
+    </node>
+
+<!--    &lt;!&ndash; Pointcloud -> Laserscan &ndash;&gt;-->
+<!--    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pepper_fake_laser">-->
+<!--        <remap from="cloud_in" to="points" />-->
+<!--&lt;!&ndash;        <param name="scan_time" type="double" value="0.2" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="range_min" type="double" value="0.4" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="range_max" type="double" value="5.0" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="use_inf" type="boolean" value="true" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="min_height" type="double" value="0.4" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="max_height" type="double" value="1.5" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="target_frame" type="string" value="base_link" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="concurrency_level" type="int" value="0" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="angle_increment" value="π/270"/>&ndash;&gt;-->
+
+
+<!--        <param name="scan_time" type="double" value="0.2" />-->
+<!--        <param name="range_min" type="double" value="0.4" />-->
+<!--        <param name="range_max" type="double" value="8.0" />-->
+<!--        <param name="use_inf" type="boolean" value="true" />-->
+<!--        <param name="min_height" type="double" value="0.05" />-->
+<!--        <param name="max_height" type="double" value="1.0" />-->
+<!--        <param name="target_frame" type="string" value="base_link" />-->
+<!--        <param name="concurrency_level" type="int" value="0" />-->
+
+<!--        <remap from="scan" to="/fake_scan"/>-->
+<!--    </node>-->
+
+    <!--Depth image to laser scan-->
+    <node pkg="nodelet" type="nodelet" name="pepper_fake_laser2" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet depth_image_nodelet_manager --no-bond">
+        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>
+        <remap from="image" to="/naoqi_driver/camera/depth/image_raw"/>
+        <remap from="scan" to="/fake_scan"/>
+
+        <param name="output_frame_id" value="base_link"/>
+    </node>
+
+</launch>

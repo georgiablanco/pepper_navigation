@@ -1,14 +1,14 @@
 <launch>
-    <!-- MAP TO ODOM -->
+<!--    &lt;!&ndash; MAP TO ODOM &ndash;&gt;-->
     <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />
 
 
-    <!-- Depth Image -> Pointcloud -->
-    <node pkg="nodelet" type="nodelet" args="manager" name="depth_image_nodelet_manager" output="screen"/>
-    <node pkg="nodelet" type="nodelet" name="pepper_pointcloud" args="load depth_image_proc/point_cloud_xyz depth_image_nodelet_manager --no-bond">
-        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>
-        <remap from="image_rect" to="/naoqi_driver/camera/depth/image_raw"/>
-    </node>
+<!--    &lt;!&ndash; Depth Image -> Pointcloud &ndash;&gt;-->
+<!--    <node pkg="nodelet" type="nodelet" args="manager" name="depth_image_nodelet_manager" output="screen"/>-->
+<!--    <node pkg="nodelet" type="nodelet" name="pepper_pointcloud" args="load depth_image_proc/point_cloud_xyz depth_image_nodelet_manager &#45;&#45;no-bond">-->
+<!--        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>-->
+<!--        <remap from="image_rect" to="/naoqi_driver/camera/depth/image_raw"/>-->
+<!--    </node>-->
 
 <!--    &lt;!&ndash; Pointcloud -> Laserscan &ndash;&gt;-->
 <!--    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pepper_fake_laser">-->
@@ -40,20 +40,21 @@
 <!--    &lt;!&ndash; HUMANOID LOCALIZATION&ndash;&gt;-->
 <!--    <node pkg="humanoid_localization" type="localization_node" name="humanoid_localization" output="screen" >-->
 <!--        <remap from="laser_sensor" to="/fake_scan"/>-->
-
+<!--        <remap from="point_cloud" to="/points"/>-->
+<!--        <remap from="base_frame_id" to="base_link"/>-->
 <!--        &lt;!&ndash;        <param name="odom_frame_id" value="odom" />&ndash;&gt;-->
 <!--&lt;!&ndash;        <param name="base_frame_id" value="base_link" />&ndash;&gt;-->
-<!--        <param name="global_frame_id" value="map" />-->
+<!--&lt;!&ndash;        <param name="global_frame_id" value="map" />&ndash;&gt;-->
 <!--&lt;!&ndash;        <param name="num_particles" value="500" />&ndash;&gt;-->
 <!--&lt;!&ndash;        <param name="use_raycasting" value="true" />&ndash;&gt;-->
-<!--&lt;!&ndash;        <param name="use_imu" value="false" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="use_imu" value="enabled" />&ndash;&gt;-->
 <!--    </node>-->
 
 
     <!-- Run octomap server-->
     <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
-        <param name="resolution" value="0.05" /> <!-- changed value from 0.05-->
-        <param name="frame_id" type="string" value="odom" />
+        <param name="resolution" value="0.2" /> <!-- changed value from 0.05-->
+<!--        <param name="frame_id" type="string" value="map" />-->
 
     <!-- maximum range to integrate (speedup!) -->
         <param name="sensor_model/max_range" value="5.0" />
