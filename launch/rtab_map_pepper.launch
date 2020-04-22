@@ -1,134 +1,134 @@
+<!--LAUNCH FOR PEPPER GAZEBO-->
 <launch>
-  <!-- Kinect cloud to laser scan -->
-<!--    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">-->
-<!--      <remap from="image"       to="/naoqi_driver/camera/depth/image_raw"/>-->
-<!--      <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>-->
-<!--      <remap from="scan"        to="/kinect_scan"/>-->
-<!--      <param name="output_frame_id" value="base_link"/>-->
-<!--      <param name="range_max" type="double" value="4"/>-->
-<!--    </node>-->
+  <group ns="rtabmap">
 
-  <!-- SLAM -->
-<!--  <group ns="rtabmap">-->
-<!--    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="&#45;&#45;delete_db_on_start">-->
-<!--          <param name="frame_id" type="string" value="base_link"/>-->
-
-<!--          <param name="subscribe_depth" type="bool" value="true"/>-->
-<!--          <param name="subscribe_scan" type="bool" value="true"/>-->
-<!--          <param name="subscribe_scan_cloud" type="bool" value="true"/>-->
-
-<!--&lt;!&ndash;          <remap from="odom" to="/odom"/>&ndash;&gt;-->
-<!--          <remap from="scan" to="/fake_scan"/>-->
-<!--          <remap from="/cloud_in" to="points" />-->
-<!--          <remap from="rgb/image"       to="/naoqi_driver/camera/depth/image_raw"/>-->
-<!--          <remap from="depth/image"     to="/naoqi_driver/camera/depth/image_raw"/>-->
-<!--          <remap from="rgb/camera_info" to="/naoqi_driver/camera/depth/camera_info"/>-->
-
-<!--          <remap from="grid_map" to="/map"/>-->
-
-<!--          <param name="queue_size" type="int" value="10"/>-->
-
-<!--          &lt;!&ndash; RTAB-Map's parameters &ndash;&gt;-->
-<!--          <param name="RGBD/ProximityBySpace"     type="string" value="false"/>-->
-<!--          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>-->
-<!--          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>-->
-<!--          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>-->
-<!--          <param name="Reg/Force3DoF"             type="string" value="true"/>-->
-<!--          <param name="Vis/MinInliers"            type="string" value="12"/>-->
-<!--    </node>-->
-
-<!--  </group>-->
-
-    <group ns="rtabmap">
-
+    <!-- Use RGBD synchronization -->
+    <!-- Here is a general example using a standalone nodelet,
+         but it is recommended to attach this nodelet to nodelet
+         manager of the camera to avoid topic serialization -->
     <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
-        <remap from="rgb/image"       to="/naoqi_driver/camera/depth/image_raw"/>
-        <remap from="depth/image"     to="/naoqi_driver/camera/depth/image_raw"/>
-        <remap from="rgb/camera_info" to="/naoqi_driver/camera/depth/camera_info"/>
-        <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+      <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>
+      <remap from="depth/image"     to="/pepper/camera/depth/image_raw"/>
+      <remap from="rgb/camera_info" to="/pepper/camera/front/camera_info"/>
+      <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
 
       <!-- Should be true for not synchronized camera topics
            (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
-        <param name="approx_sync"       value="true"/>
+      <param name="approx_sync"       value="true"/>
     </node>
 
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
-      <param name="frame_id" type="string" value="base_link"/>
-      <param name="odom_frame_id" type="string" value="odom"/>
+          <param name="frame_id" type="string" value="base_link"/>
 
-      <param name="subscribe_depth" type="bool" value="false"/>
-      <param name="subscribe_rgbd" type="bool" value="true"/>
+          <param name="subscribe_depth" type="bool" value="false"/>
+          <param name="subscribe_rgbd" type="bool" value="true"/>
+          <param name="subscribe_scan" type="bool" value="false"/>
+          <param name="subscribe_scan_cloud" type="bool" value="true"/>
 
-<!--      <remap from="odom" to="/naoqi_driver/odom"/>-->
+          <remap from="odom" to="/pepper/odom"/>
+          <remap from="scan" to="/pepper/laser_2"/>
+          <remap from="scan_cloud" to="/pepper/camera/depth/points"/>
+<!--          <remap from="rgbd_image" to="/pepper/camera/depth/image_raw"/>-->
+          <remap from="rgbd_image" to="rgbd_image"/>
+      <!--          <remap from="depth/image" to="/pepper/camera/depth/image_raw"/>-->
 
-      <remap from="rgbd_image" to="rgbd_image"/>
+          <param name="queue_size" type="int" value="10"/>
 
-      <param name="queue_size" type="int" value="10"/>
+          <!-- RTAB-Map's parameters -->
+          <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
+          <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
+<!--          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>-->
+<!--          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>-->
+          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+          <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
+          <param name="Reg/Force3DoF"             type="string" value="true"/>
+          <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
 
-      <!-- RTAB-Map's parameters -->
-<!--      <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>-->
-<!--      <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>-->
-      <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+          <!-- ICP parameters -->
+          <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
+          <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
 
 
-      <param name="Reg/Force3DoF"             type="string" value="true"/>
-      <!-- 0.05 rad =~ 3deg, default 0.1 rad =~ 5deg -->
-      <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
-      <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
+          <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
+          <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
 
-      <param name="Grid/NoiseFilteringRadius" value="0.05"/>
-      <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>
+          <param name="Grid/NoiseFilteringRadius" value="0.05"/>
+          <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>
 
-      <param name="Grid/MaxObstacleHeight" value="2.0"/>
+          <param name="Grid/MaxObstacleHeight" value="2.0"/>
 
-      <!-- [0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK 8=GFTT/ORB 9=KAZE.] default 6
-    https://github.com/introlab/rtabmap/wiki/Change-parameters#odometry
-    says FAST/ORB are faster -->
-      <!-- <param name="Kp/DetectorStrategy" value="2"/>
-      <param name="Vis/FeatureType" value="2"/> -->
+          <param name="Vis/MaxDepth" value="4.0" />
 
-      <param name="Vis/MaxDepth" value="4.0" />
+          <param name="Rtabmap/DetectionRate" value="0" />
+          <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
 
-      <param name="Rtabmap/DetectionRate" value="0" />
-      <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
     </node>
   </group>
 </launch>
 
 
-
-
-
-
-
-<!--&lt;!&ndash; This file shows the most important parameters in their default settings,-->
-<!--     to make them easily available for beginners.-->
-<!--     The openni driver is started automatically &ndash;&gt;-->
+<!--&lt;!&ndash;LAUNCH FOR PEPPER QIBULLET ... NOT WORKING YET!!!&ndash;&gt;-->
 <!--<launch>-->
-<!--  <include file="$(find openni_launch)/launch/openni.launch"/>-->
-<!--  <node pkg="rgbdslam" type="rgbdslam" name="rgbdslam" cwd="node" required="true" output="screen">-->
-<!--    &lt;!&ndash; Input data settings&ndash;&gt;-->
-<!--    <param name="config/topic_image_mono"              value="/camera/image_color"/>-->
-<!--    <param name="config/topic_image_depth"             value="/camera/depth_registered/sw_registered/image_rect_raw"/>-->
+<!--  <group ns="rtabmap">-->
 
-<!--    &lt;!&ndash; These are the default values of some important parameters &ndash;&gt;-->
-<!--    <param name="config/feature_extractor_type"        value="ORB"/>&lt;!&ndash; also available: SIFT, SIFTGPU, SURF, SURF128 (extended SURF), ORB. &ndash;&gt;-->
-<!--    <param name="config/feature_detector_type"         value="ORB"/>&lt;!&ndash; also available: SIFT, SURF, GFTT (good features to track), ORB. &ndash;&gt;-->
-<!--    <param name="config/detector_grid_resolution"      value="3"/>&lt;!&ndash; detect on a 3x3 grid (to spread ORB keypoints and parallelize SIFT and SURF) &ndash;&gt;-->
-<!--    <param name="config/max_keypoints"                 value="600"/>&lt;!&ndash; Extract no more than this many keypoints &ndash;&gt;-->
-<!--    <param name="config/max_matches"                   value="300"/>&lt;!&ndash; Keep the best n matches (important for ORB to set lower than max_keypoints) &ndash;&gt;-->
+<!--    &lt;!&ndash; Use RGBD synchronization &ndash;&gt;-->
+<!--    &lt;!&ndash; Here is a general example using a standalone nodelet,-->
+<!--         but it is recommended to attach this nodelet to nodelet-->
+<!--         manager of the camera to avoid topic serialization &ndash;&gt;-->
+<!--    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">-->
+<!--      <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>-->
+<!--      <remap from="depth/image"     to="/pepper/camera/depth/image_raw"/>-->
+<!--      <remap from="rgb/camera_info" to="/pepper/camera/front/camera_info"/>-->
+<!--      <remap from="rgbd_image"      to="rgbd_image"/> &lt;!&ndash; output &ndash;&gt;-->
 
-<!--    <param name="config/min_sampled_candidates"        value="4"/>&lt;!&ndash; Frame-to-frame comparisons to random frames (big loop closures) &ndash;&gt;-->
-<!--    <param name="config/predecessor_candidates"        value="4"/>&lt;!&ndash; Frame-to-frame comparisons to sequential frames&ndash;&gt;-->
-<!--    <param name="config/neighbor_candidates"           value="4"/>&lt;!&ndash; Frame-to-frame comparisons to graph neighbor frames&ndash;&gt;-->
-<!--    <param name="config/ransac_iterations"             value="100"/>-->
-<!--    <param name="config/cloud_creation_skip_step"      value="2"/>&lt;!&ndash; subsample the images' pixels (in both, width and height), when creating the cloud (and therefore reduce memory consumption) &ndash;&gt;-->
+<!--      &lt;!&ndash; Should be true for not synchronized camera topics-->
+<!--           (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)&ndash;&gt;-->
+<!--      <param name="approx_sync"       value="true"/>-->
+<!--    </node>-->
+
+<!--    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="&#45;&#45;delete_db_on_start">-->
+<!--          <param name="frame_id" type="string" value="base_link"/>-->
+
+<!--          <param name="subscribe_depth" type="bool" value="false"/>-->
+<!--          <param name="subscribe_rgbd" type="bool" value="true"/>-->
+<!--          <param name="subscribe_scan" type="bool" value="true"/>-->
+
+<!--          <remap from="odom" to="/naoqi_driver/odom"/>-->
+<!--          <remap from="scan" to="/pepper/laser"/>-->
+<!--&lt;!&ndash;          <remap from="rgbd_image" to="/pepper/camera/depth/image_raw"/>&ndash;&gt;-->
+<!--          <remap from="rgbd_image" to="rgbd_image"/>-->
+<!--      &lt;!&ndash;          <remap from="depth/image" to="/pepper/camera/depth/image_raw"/>&ndash;&gt;-->
+
+<!--          <param name="queue_size" type="int" value="10"/>-->
+
+<!--          &lt;!&ndash; RTAB-Map's parameters &ndash;&gt;-->
+<!--          <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>-->
+<!--          <param name="RGBD/ProximityBySpace"     type="string" value="true"/>-->
+<!--&lt;!&ndash;          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>&ndash;&gt;-->
+<!--&lt;!&ndash;          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>&ndash;&gt;-->
+<!--          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>-->
+<!--          <param name="Grid/FromDepth"            type="string" value="false"/> &lt;!&ndash; occupancy grid from lidar &ndash;&gt;-->
+<!--          <param name="Reg/Force3DoF"             type="string" value="true"/>-->
+<!--          <param name="Reg/Strategy"              type="string" value="1"/> &lt;!&ndash; 1=ICP &ndash;&gt;-->
+
+<!--          &lt;!&ndash; ICP parameters &ndash;&gt;-->
+<!--          <param name="Icp/VoxelSize"                 type="string" value="0.05"/>-->
+<!--          <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>-->
 
 
-<!--    <param name="config/cloud_display_type"            value="POINTS"/>&lt;!&ndash; Show pointclouds as points (as opposed to TRIANGLE_STRIP) &ndash;&gt;-->
-<!--    <param name="config/pose_relative_to"              value="largest_loop"/>&lt;!&ndash; optimize only a subset of the graph: "largest_loop" = Everything from the earliest matched frame to the current one. Use "first" to optimize the full graph, "inaffected" to optimize only the frames that were matched (not those inbetween for loops) &ndash;&gt;-->
-<!--    <param name="config/backend_solver"                value="pcg"/>&lt;!&ndash; pcg is faster and good for continuous online optimization, cholmod and csparse are better for offline optimization (without good initial guess)&ndash;&gt;-->
-<!--    <param name="config/optimizer_skip_step"           value="1"/>&lt;!&ndash; optimize only every n-th frame &ndash;&gt;-->
+<!--          <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>-->
+<!--          <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>-->
 
-<!--  </node>-->
+<!--          <param name="Grid/NoiseFilteringRadius" value="0.05"/>-->
+<!--          <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>-->
+
+<!--          <param name="Grid/MaxObstacleHeight" value="2.0"/>-->
+
+<!--          <param name="Vis/MaxDepth" value="4.0" />-->
+
+<!--          <param name="Rtabmap/DetectionRate" value="0" />-->
+<!--          <param name="Rtabmap/ImagesAlreadyRectified" value="true" />-->
+
+<!--    </node>-->
+<!--  </group>-->
 <!--</launch>-->

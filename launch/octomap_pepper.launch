@@ -1,41 +1,7 @@
 <launch>
-<!--    &lt;!&ndash; MAP TO ODOM &ndash;&gt;-->
-    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />
+<!--    &lt;!&ndash; MAP TO ODOM use when no gmapping &ndash;&gt;-->
+<!--    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />-->
 
-
-<!--    &lt;!&ndash; Depth Image -> Pointcloud &ndash;&gt;-->
-<!--    <node pkg="nodelet" type="nodelet" args="manager" name="depth_image_nodelet_manager" output="screen"/>-->
-<!--    <node pkg="nodelet" type="nodelet" name="pepper_pointcloud" args="load depth_image_proc/point_cloud_xyz depth_image_nodelet_manager &#45;&#45;no-bond">-->
-<!--        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>-->
-<!--        <remap from="image_rect" to="/naoqi_driver/camera/depth/image_raw"/>-->
-<!--    </node>-->
-
-<!--    &lt;!&ndash; Pointcloud -> Laserscan &ndash;&gt;-->
-<!--    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pepper_fake_laser">-->
-<!--        <remap from="cloud_in" to="points" />-->
-<!--        <param name="scan_time" type="double" value="0.2" />-->
-<!--        <param name="range_min" type="double" value="0.4" />-->
-<!--        <param name="range_max" type="double" value="8.0" />-->
-<!--        <param name="use_inf" type="boolean" value="true" />-->
-<!--        <param name="min_height" type="double" value="0.05" />-->
-<!--        <param name="max_height" type="double" value="1.0" />-->
-<!--        <param name="target_frame" type="string" value="base_link" />-->
-<!--        <param name="concurrency_level" type="int" value="0" />-->
-<!--    </node>-->
-
-<!--     &lt;!&ndash; AMCL &ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;     <node pkg="amcl" type="amcl" name="amcl" output="screen">&ndash;&gt;-->
-<!--&lt;!&ndash;         <remap from="scan" to="/fake_scan" />&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;         <remap from="map" to="loc_map" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;         <remap from="initialpose" to="initialpose" />&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;         <param name="initial_pose_x" value="$(arg robot_init_x)"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;         <param name="initial_pose_y" value="$(arg robot_init_y)"/>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;         <param name="initial_pose_a" value="$(arg robot_init_phi)"/>&ndash;&gt;&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash;        <rosparam command="load" file="$(env ROBOT_BRINGUP_PATH)/parameters/localization/amcl.yaml" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;     </node>&ndash;&gt;-->
 
 <!--    &lt;!&ndash; HUMANOID LOCALIZATION&ndash;&gt;-->
 <!--    <node pkg="humanoid_localization" type="localization_node" name="humanoid_localization" output="screen" >-->
@@ -53,14 +19,24 @@
 
     <!-- Run octomap server-->
     <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
-        <param name="resolution" value="0.2" /> <!-- changed value from 0.05-->
+        <param name="resolution" value="0.1" /> <!-- changed value from 0.05-->
 <!--        <param name="frame_id" type="string" value="map" />-->
 
     <!-- maximum range to integrate (speedup!) -->
-        <param name="sensor_model/max_range" value="5.0" />
+        <param name="sensor_model/max_range" value="4.0" />
+        <param name="latch" value="0"/>
+<!--        <param name="filter_speckles" value="true" />-->
+        <!--<param name="occupancy_[min|max]_z" value="1.5 / 4"/>-->
+
+        <param name="filter_ground" type="bool" value="true"/>
+        <param name="ground_filter/distance" value="0.05" />
+        <param name="ground_filter/angle" value="0.05" />
+        <param name="ground_filter/plane_distance" value="0.2" />
+
 
     <!-- data source to integrate (PointCloud2) -->
-        <remap from="/cloud_in" to="points" />
+<!--        <remap from="/cloud_in" to="points" />-->
+        <remap from="/cloud_in" to="/pepper/camera/depth/points"/>
     </node>
 
 

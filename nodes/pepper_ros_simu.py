@@ -23,7 +23,8 @@ if __name__ == "__main__":
     # sdf = pybullet.loadSDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables1.sdf")
 
     wrap = PepperRosWrapper()
-    wrap.launchWrapper(pepper, "/naoqi_driver")
+    # wrap.launchWrapper(pepper, "/naoqi_driver")
+    wrap.launchWrapper(pepper, "/pepper")
 
     pepper.subscribeCamera(PepperVirtual.ID_CAMERA_DEPTH)
     pepper.subscribeLaser()

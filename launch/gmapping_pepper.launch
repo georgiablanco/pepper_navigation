@@ -78,65 +78,75 @@
 <!--    </node>-->
 
   <!-- Gmapping -->
-  <node pkg="gmapping" type="slam_gmapping" name="pepper_slam_gmapping" output="screen">
-    <remap from="scan" to="/naoqi_driver/laser"/>
-<!--    <remap from="scan" to="/fake_scan"/>-->
-    <param name="map_update_interval" value="1.0"/>
-    <param name="maxUrange" value="12.0"/>
+<!--  <node pkg="gmapping" type="slam_gmapping" name="pepper_slam_gmapping" output="screen">-->
+<!--&lt;!&ndash;    <remap from="scan" to="/naoqi_driver/laser"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <remap from="scan" to="/fake_scan"/>&ndash;&gt;-->
+<!--    <remap from="scan" to="pepper/laser_2"/>-->
 
-    <param name="sigma" value="0.05"/>
-    <param name="kernelSize" value="1"/>
-    <param name="lstep" value="0.05"/>
-    <param name="astep" value="0.05"/>
-    <param name="iterations" value="5"/>
-    <param name="lsigma" value="0.075"/>
-    <param name="ogain" value="3.0"/>
-    <param name="lskip" value="0"/>
+<!--&lt;!&ndash;    <param name="odom_frame" value="/pepper/odom"/>&ndash;&gt;-->
+<!--    <param name="base_frame" value="/base_footprint"/>-->
 
-    <param name="minimumScore" value="100"/>
-    <param name="srr" value="0.1"/>
-    <param name="srt" value="0.1"/>
-    <param name="str" value="0"/>
-    <param name="stt" value="0.02"/>
-    <param name="linearUpdate" value="0.5"/>
+<!--    <param name="map_update_interval" value="1.0"/>-->
+<!--    <param name="maxUrange" value="12.0"/>-->
 
-    <param name="angularUpdate" value="0.2"/>
-    <param name="temporalUpdate" value="0.5"/>
-    <param name="resampleThreshold" value="0.5"/>
 
-    <param name="particles" value="50"/>
-    <param name="xmin" value="-50.0"/>
-    <param name="ymin" value="-50.0"/>
-    <param name="xmax" value="50.0"/>
-    <param name="ymax" value="50.0"/>
-    <param name="delta" value="0.05"/>
-    <param name="transform_publish_period" value="0.01"/>
+<!--    <param name="sigma" value="0.05"/>-->
+<!--    <param name="kernelSize" value="1"/>-->
+<!--    <param name="lstep" value="0.05"/>-->
+<!--    <param name="astep" value="0.05"/>-->
+<!--    <param name="iterations" value="5"/>-->
+<!--    <param name="lsigma" value="0.075"/>-->
+<!--    <param name="ogain" value="3.0"/>-->
+<!--    <param name="lskip" value="0"/>-->
 
-    <param name="llsamplerange" value="0.01"/>
-    <param name="llsamplestep" value="0.01"/>
-    <param name="lasamplerange" value="0.005"/>
-    <param name="lasamplestep" value="0.005"/>
-<!--    <param name="maxRange" value="12"/>-->
-  </node>
+<!--    <param name="minimumScore" value="100"/>-->
+<!--    <param name="srr" value="0.1"/>-->
+<!--    <param name="srt" value="0.1"/>-->
+<!--    <param name="str" value="0"/>-->
+<!--    <param name="stt" value="0.02"/>-->
+<!--    <param name="linearUpdate" value="0.5"/>-->
 
-<!--    &lt;!&ndash; Run Gmapping &ndash;&gt;-->
-<!--    <node pkg="gmapping" type="slam_gmapping" name="pepper_gmapping">-->
-<!--&lt;!&ndash;        <remap from="odom" to="/pepper_robot/naoqi_driver/odom" />&ndash;&gt;-->
+<!--    <param name="angularUpdate" value="0.1"/>-->
+<!--    <param name="temporalUpdate" value="0.1"/>-->
+<!--    <param name="resampleThreshold" value="0.5"/>-->
+
+<!--    <param name="particles" value="50"/>-->
+<!--    <param name="xmin" value="-50.0"/>-->
+<!--    <param name="ymin" value="-50.0"/>-->
+<!--    <param name="xmax" value="50.0"/>-->
+<!--    <param name="ymax" value="50.0"/>-->
+<!--    <param name="delta" value="0.05"/>-->
+<!--    <param name="transform_publish_period" value="0.01"/>-->
+
+<!--    <param name="llsamplerange" value="0.01"/>-->
+<!--    <param name="llsamplestep" value="0.01"/>-->
+<!--    <param name="lasamplerange" value="0.005"/>-->
+<!--    <param name="lasamplestep" value="0.005"/>-->
+<!--&lt;!&ndash;    <param name="maxRange" value="12"/>&ndash;&gt;-->
+<!--  </node>-->
+
+    <!-- Run Gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="pepper_gmapping">
+<!--        <remap from="odom" to="/pepper_robot/naoqi_driver/odom" />-->
 <!--        <remap from="scan" to="/fake_scan"/>-->
+        <remap from="scan" to="pepper/laser_2"/>
 
-<!--        <param name="map_update_interval" value="0.3" />-->
-<!--        <param name="maxUrange" value="8.0" />-->
-<!--        <param name="srr" value="0.1" />-->
-<!--        <param name="srt" value="0.2" />-->
-<!--        <param name="str" value="0.1" />-->
-<!--        <param name="stt" value="0.2" />-->
-<!--        <param name="linearUpdate" value="0.1" />-->
-<!--        <param name="angularUpdate" value="0.1" />-->
-<!--        <param name="xmin" value="-5.0" />-->
-<!--        <param name="ymin" value="-5.0" />-->
-<!--        <param name="xmax" value="5.0" />-->
-<!--        <param name="ymax" value="5.0" />-->
-<!--        <param name="delta" value="0.04" />-->
-<!--    </node>-->
+<!--    <param name="odom_frame" value="/pepper/odom"/>-->
+        <param name="base_frame" value="/base_footprint"/>
+
+        <param name="map_update_interval" value="0.3" />
+        <param name="maxUrange" value="8.0" />
+        <param name="srr" value="0.1" />
+        <param name="srt" value="0.2" />
+        <param name="str" value="0.1" />
+        <param name="stt" value="0.2" />
+        <param name="linearUpdate" value="0.1" />
+        <param name="angularUpdate" value="0.1" />
+        <param name="xmin" value="-5.0" />
+        <param name="ymin" value="-5.0" />
+        <param name="xmax" value="5.0" />
+        <param name="ymax" value="5.0" />
+        <param name="delta" value="0.04" />
+    </node>
 
 </launch>
