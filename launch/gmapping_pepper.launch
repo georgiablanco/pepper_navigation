@@ -129,7 +129,7 @@
     <node pkg="gmapping" type="slam_gmapping" name="pepper_gmapping">
 <!--        <remap from="odom" to="/pepper_robot/naoqi_driver/odom" />-->
 <!--        <remap from="scan" to="/fake_scan"/>-->
-        <remap from="scan" to="pepper/laser_2"/>
+        <remap from="scan" to="/pepper/laser_2"/>
 
 <!--    <param name="odom_frame" value="/pepper/odom"/>-->
         <param name="base_frame" value="/base_footprint"/>

@@ -1,0 +1,47 @@
+<launch>
+    <!-- MAP TO ODOM use when no gmapping -->
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />
+
+    <!-- Run OctoMap Server -->
+<!--    <node name="octomap_server" pkg="octomap_server" type="octomap_server_node" args="$(find pepper_navigation)/maps/22_04/3D_octo.bt"/>-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/22_04/2D_octo.yaml"/>
+
+
+<!--    &lt;!&ndash; Humanoid Localization &ndash;&gt;-->
+<!--    <node name="humanoid_localization" pkg="humanoid_localization" type="localization_node" output="screen">-->
+<!--        <remap from="scan" to="/pepper/laser_2"/>-->
+<!--        <remap from="point_cloud" to="/pepper/camera/depth/points"/>-->
+
+
+<!--        <param name="base_frame_id" value="/base_footprint"/>-->
+<!--&lt;!&ndash;        <param name="odom_frame_id" value="/pepper/odom" />&ndash;&gt;-->
+<!--        <param name="num_particles" value="500" />-->
+<!--&lt;!&ndash;        <param name="use_raycasting" value="true" />&ndash;&gt;-->
+<!--        <param name="use_imu" value="enabled" />-->
+
+<!--    </node>-->
+
+    <!-- AMCL3D -->
+    <node pkg="amcl3d" type="amcl3d_node" name="amcl3d_node" output="screen">
+        <remap from="laser_sensor" to="/pepper/camera/depth/points"/>
+
+
+        <param name="base_frame_id" type="string" value="base_footprint"/>
+
+    </node>
+
+</launch>
+
+
+<!--    &lt;!&ndash; HUMANOID LOCALIZATION&ndash;&gt;-->
+<!--    <node pkg="humanoid_localization" type="localization_node" name="humanoid_localization" output="screen" >-->
+<!--        <remap from="laser_sensor" to="/fake_scan"/>-->
+<!--        <remap from="point_cloud" to="/points"/>-->
+<!--&lt;!&ndash;        <remap from="base_frame_id" to="base_link"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <param name="odom_frame_id" value="odom" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="base_frame_id" value="base_link" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="global_frame_id" value="map" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="num_particles" value="500" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="use_raycasting" value="true" />&ndash;&gt;-->
+<!--&lt;!&ndash;        <param name="use_imu" value="enabled" />&ndash;&gt;-->
+<!--    </node>-->
