@@ -125,6 +125,15 @@
 <!--&lt;!&ndash;    <param name="maxRange" value="12"/>&ndash;&gt;-->
 <!--  </node>-->
 
+<!--      &lt;!&ndash; Kinect cloud to laser scan &ndash;&gt;-->
+<!--    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">-->
+<!--      <remap from="image"       to="/pepper/camera/depth/image_raw"/>-->
+<!--      <remap from="camera_info" to="/pepper/camera/depth/camera_info"/>-->
+<!--      <remap from="scan"        to="/fake_scan"/>-->
+<!--&lt;!&ndash;      <param name="range_max" type="double" value="4"/>&ndash;&gt;-->
+<!--      <param name="output_frame_id" value="base_link"/>-->
+<!--    </node>-->
+
     <!-- Run Gmapping -->
     <node pkg="gmapping" type="slam_gmapping" name="pepper_gmapping">
 <!--        <remap from="odom" to="/pepper_robot/naoqi_driver/odom" />-->

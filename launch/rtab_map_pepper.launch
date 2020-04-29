@@ -1,5 +1,7 @@
 <!--LAUNCH FOR PEPPER GAZEBO-->
 <launch>
+    <arg name="localisation" default="false"/>
+
   <group ns="rtabmap">
 
     <!-- Use RGBD synchronization -->
@@ -7,60 +9,71 @@
          but it is recommended to attach this nodelet to nodelet
          manager of the camera to avoid topic serialization -->
     <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
-      <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>
-      <remap from="depth/image"     to="/pepper/camera/depth/image_raw"/>
-      <remap from="rgb/camera_info" to="/pepper/camera/front/camera_info"/>
-      <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+        <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>
+        <remap from="depth/image"     to="/pepper/camera/depth/image_raw"/>
+        <remap from="rgb/camera_info" to="/pepper/camera/front/camera_info"/>
+        <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
 
       <!-- Should be true for not synchronized camera topics
            (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
-      <param name="approx_sync"       value="true"/>
+        <param name="approx_sync"       value="true"/>
     </node>
 
+<!--      &lt;!&ndash; Kinect cloud to laser scan &ndash;&gt;-->
+<!--    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan">-->
+<!--      <remap from="image"       to="/pepper/camera/depth/image_raw"/>-->
+<!--      <remap from="camera_info" to="/pepper/camera/depth/camera_info"/>-->
+<!--      <remap from="scan"        to="/kinect_scan"/>-->
+<!--      <param name="range_max" type="double" value="4"/>-->
+<!--      <param name="output_frame_id" value="base_link"/>-->
+<!--    </node>-->
+
+
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
-          <param name="frame_id" type="string" value="base_link"/>
+        <param name="frame_id" type="string" value="base_link"/>
 
-          <param name="subscribe_depth" type="bool" value="false"/>
-          <param name="subscribe_rgbd" type="bool" value="true"/>
-          <param name="subscribe_scan" type="bool" value="false"/>
-          <param name="subscribe_scan_cloud" type="bool" value="true"/>
+        <param name="subscribe_depth" type="bool" value="false"/>
+        <param name="subscribe_rgbd" type="bool" value="true"/>
+        <param name="subscribe_scan" type="bool" value="true"/>
+        <param name="subscribe_scan_cloud" type="bool" value="false"/>
 
-          <remap from="odom" to="/pepper/odom"/>
-          <remap from="scan" to="/pepper/laser_2"/>
-          <remap from="scan_cloud" to="/pepper/camera/depth/points"/>
+        <remap from="odom" to="/pepper/odom"/>
+        <remap from="scan" to="/pepper/laser_2"/>
+<!--          <remap from="scan" to="/kinect_scan"/>-->
+<!--          <remap from="scan_cloud" to="/pepper/camera/depth/points"/>-->
 <!--          <remap from="rgbd_image" to="/pepper/camera/depth/image_raw"/>-->
-          <remap from="rgbd_image" to="rgbd_image"/>
-      <!--          <remap from="depth/image" to="/pepper/camera/depth/image_raw"/>-->
+        <remap from="rgbd_image" to="rgbd_image"/>
+  <!--          <remap from="depth/image" to="/pepper/camera/depth/image_raw"/>-->
 
-          <param name="queue_size" type="int" value="10"/>
+        <param name="queue_size" type="int" value="10"/>
 
           <!-- RTAB-Map's parameters -->
-          <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
-          <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
-<!--          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>-->
-<!--          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>-->
-          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
-          <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
-          <param name="Reg/Force3DoF"             type="string" value="true"/>
-          <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
+        <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
+        <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
+        <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
+        <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
+        <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+        <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
+        <param name="Reg/Force3DoF"             type="string" value="true"/>
+        <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
+
+        <param name="Grid/NoiseFilteringRadius" value="0.05"/>
+        <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>
+        <param name="Grid/MaxObstacleHeight" value="1.3"/>
+        <param name="Grid/FromDepth" value="true"/>
+
+        <param name="Vis/MaxDepth" value="4.0" />
+
+        <param name="Rtabmap/DetectionRate" value="0" />
+        <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
+
+        <param if="$(arg localisation)" name="Mem/IncrementalMemory" type="string" value="false"/>
+        <param if="$(arg localisation)" name="Mem/InitWMWithAllNodes" type="string" value="true"/>
 
           <!-- ICP parameters -->
-          <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
-          <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
+        <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
+        <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
 
-
-          <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
-          <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
-
-          <param name="Grid/NoiseFilteringRadius" value="0.05"/>
-          <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>
-
-          <param name="Grid/MaxObstacleHeight" value="2.0"/>
-
-          <param name="Vis/MaxDepth" value="4.0" />
-
-          <param name="Rtabmap/DetectionRate" value="0" />
-          <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
 
     </node>
   </group>

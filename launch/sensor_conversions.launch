@@ -38,8 +38,8 @@
 
     <!--Depth image to laser scan-->
     <node pkg="nodelet" type="nodelet" name="pepper_fake_laser2" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet depth_image_nodelet_manager --no-bond">
-        <remap from="camera_info" to="/naoqi_driver/camera/depth/camera_info"/>
-        <remap from="image" to="/naoqi_driver/camera/depth/image_raw"/>
+        <remap from="camera_info" to="/pepper/camera/depth/camera_info"/>
+        <remap from="image" to="/pepper/camera/depth/image_raw"/>
         <remap from="scan" to="/fake_scan"/>
 
         <param name="output_frame_id" value="base_link"/>
