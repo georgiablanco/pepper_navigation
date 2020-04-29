@@ -1,5 +1,5 @@
 <launch>
-<!--    &lt;!&ndash; MAP TO ODOM use when no gmapping &ndash;&gt;-->
+    <!-- MAP TO ODOM use when no gmapping -->
 <!--    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />-->
 
 
@@ -15,7 +15,12 @@
 <!--&lt;!&ndash;        <param name="use_raycasting" value="true" />&ndash;&gt;-->
 <!--&lt;!&ndash;        <param name="use_imu" value="enabled" />&ndash;&gt;-->
 <!--    </node>-->
-
+<!--    &lt;!&ndash; Depth Image -> Pointcloud &ndash;&gt;-->
+<!--    <node pkg="nodelet" type="nodelet" args="manager" name="depth_image_nodelet_manager" output="screen"/>-->
+<!--    <node pkg="nodelet" type="nodelet" name="pepper_pointcloud" args="load depth_image_proc/point_cloud_xyz depth_image_nodelet_manager &#45;&#45;no-bond">-->
+<!--        <remap from="camera_info" to="/pepper/camera/depth/camera_info"/>-->
+<!--        <remap from="image_rect" to="/pepper/camera/depth/image_raw"/>-->
+<!--    </node>-->
 
     <!-- Run octomap server-->
     <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">

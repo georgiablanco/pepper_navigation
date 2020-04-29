@@ -3,7 +3,7 @@
     <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />
 
     <!-- Run OctoMap Server -->
-<!--    <node name="octomap_server" pkg="octomap_server" type="octomap_server_node" args="$(find pepper_navigation)/maps/22_04/3D_octo.bt"/>-->
+<!--    <node name="octomap_server" pkg="octomap_server" type="octomap_server_node" args="$(find pepper_navigation)/maps/restaurant1/3D_octo.bt"/>-->
     <node name="map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/22_04/2D_octo.yaml"/>
 
 

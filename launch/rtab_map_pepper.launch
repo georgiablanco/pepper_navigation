@@ -30,15 +30,15 @@
 
 
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
-        <param name="frame_id" type="string" value="base_link"/>
+        <param name="frame_id" type="string" value="base_footprint"/>
 
         <param name="subscribe_depth" type="bool" value="false"/>
         <param name="subscribe_rgbd" type="bool" value="true"/>
-        <param name="subscribe_scan" type="bool" value="true"/>
-        <param name="subscribe_scan_cloud" type="bool" value="false"/>
+<!--        <param name="subscribe_scan" type="bool" value="false"/>-->
+<!--        <param name="subscribe_scan_cloud" type="bool" value="false"/>-->
 
         <remap from="odom" to="/pepper/odom"/>
-        <remap from="scan" to="/pepper/laser_2"/>
+<!--        <remap from="scan" to="/pepper/laser_2"/>-->
 <!--          <remap from="scan" to="/kinect_scan"/>-->
 <!--          <remap from="scan_cloud" to="/pepper/camera/depth/points"/>-->
 <!--          <remap from="rgbd_image" to="/pepper/camera/depth/image_raw"/>-->
@@ -53,10 +53,11 @@
         <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
         <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
         <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
-        <param name="Grid/FromDepth"            type="string" value="false"/> <!-- occupancy grid from lidar -->
-        <param name="Reg/Force3DoF"             type="string" value="true"/>
-        <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
 
+        <param name="Rtabmap/DetectionRate" value="0" />
+        <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
+
+        <param name="Grid/FromDepth" type="string" value="true"/> <!-- occupancy grid from lidar -->
         <param name="Grid/NoiseFilteringRadius" value="0.05"/>
         <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>
         <param name="Grid/MaxObstacleHeight" value="1.3"/>
@@ -64,11 +65,11 @@
 
         <param name="Vis/MaxDepth" value="4.0" />
 
-        <param name="Rtabmap/DetectionRate" value="0" />
-        <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
-
         <param if="$(arg localisation)" name="Mem/IncrementalMemory" type="string" value="false"/>
         <param if="$(arg localisation)" name="Mem/InitWMWithAllNodes" type="string" value="true"/>
+
+        <param name="Reg/Force3DoF"             type="string" value="true"/>
+        <param name="Reg/Strategy"              type="string" value="1"/> <!-- 1=ICP -->
 
           <!-- ICP parameters -->
         <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
