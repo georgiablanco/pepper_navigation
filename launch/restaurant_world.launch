@@ -28,7 +28,7 @@
 
   <node name="laser_publisher" pkg="pepper_gazebo_plugin" type="laser_publisher.py"/>
 
-  <node pkg="rviz" type="rviz" name="pepper_rviz"/>
+    <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_mapping1.rviz"/>
 
 
 </launch>
