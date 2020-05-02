@@ -1,3 +1,9 @@
+        <param name="footprint_padding" value="0.05" />
+        <param name="controller_frequency" value="10.0" />
+        <param name="controller_patience" value="5.0" />
+        <param name="planner_patience" value="3.0" />
+planner_frequency: 0.
+
 conservative_reset:
   reset_distance: 3.0
   layer_names:

@@ -1,20 +1,28 @@
 <launch>
     <!-- MAP TO ODOM use when no gmapping -->
-    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />
+<!--    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />-->
 
-    <!-- Run Map Server -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/22_04/2D_octo.yaml"/>
+    <!-- Run Map Server for AMCL-->
+    <node name="amcl_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant_door1/2D_gmap.yaml">
+        <remap from="/map" to="/amcl_map"/>
+    </node>
 
     <!--- Run AMCL -->
     <node name="amcl" pkg="amcl" type="amcl">
-        <remap from="scan" to="/pepper/laser_2" />
+        <remap from="/scan" to="/pepper/laser_2" />
+        <remap from="/map" to="/amcl_map"/>
+
         <param name="max_particles" value="100" />
         <param name="min_particles" value="50" />
         <param name="base_frame_id" value="base_footprint" />
+<!--        <param name="odom_frame_id" value="/pepper/odom" />-->
         <param name="odom_model_type" value="omni" />
     <!--    <param name="initial_pose_x" value="-26.408" />-->
     <!--    <param name="initial_pose_y" value="2.064" />-->
     <!--    <param name="initial_pose_a" value="0.4890" />-->
   </node>
+
+
+  <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_movebase.rviz"/>
 
 </launch>

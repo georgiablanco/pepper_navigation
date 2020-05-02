@@ -158,4 +158,6 @@
         <param name="delta" value="0.04" />
     </node>
 
+  <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_mapping.rviz"/>
+
 </launch>

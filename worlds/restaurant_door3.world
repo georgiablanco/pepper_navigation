@@ -705,7 +705,7 @@
     </light>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-3.55453 1.64484 25.405 -0 1.5698 3.13222</pose>
+        <pose frame=''>0.453529 -2.58457 21.1997 -0 1.5698 3.13222</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -876,35 +876,25 @@
       <pose frame=''>2.44387 -2.60281 0.01 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>2887 741000000</sim_time>
-      <real_time>436 924305039</real_time>
-      <wall_time>1588184031 10399873</wall_time>
-      <iterations>394812</iterations>
-      <model name='bar'>
-        <pose frame=''>-4.87729 8.04887 -0.048764 0 0 -1.57265</pose>
+      <sim_time>3179 620000000</sim_time>
+      <real_time>307 449449904</real_time>
+      <wall_time>1588261813 822249783</wall_time>
+      <iterations>291879</iterations>
+      <model name='bar1'>
+        <pose frame=''>-4.86799 8.05414 0 0 0 -1.5732</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-4.87729 8.04887 -0.048764 0 0 -1.57265</pose>
+          <pose frame=''>-4.86799 8.05414 0 0 0 -1.5732</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='bar_0'>
-        <pose frame=''>2.40272 0.372231 -0.062402 0 -0 0</pose>
+      <model name='bar2'>
+        <pose frame=''>1.62683 0.225043 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>2.40272 0.372231 -0.062402 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='bar_1'>
-        <pose frame=''>1.82622 0.371112 -0.064223 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose frame=''>1.82622 0.371112 -0.064223 0 -0 0</pose>
+          <pose frame=''>1.62683 0.225043 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -941,13 +931,13 @@
         </link>
       </model>
       <model name='citizen_extras_female_02'>
-        <pose frame=''>3.25205 2.32187 0.000428 0.001626 -0.025218 0.242863</pose>
+        <pose frame=''>3.36476 3.34576 0.000426 0.001617 -0.025042 -1.57312</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>3.25205 2.32187 0.000428 0.001626 -0.025218 0.242863</pose>
+          <pose frame=''>3.36476 3.34576 0.000426 0.001617 -0.025042 -1.57312</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0.04528 -0.092312 -15.9762 0 -0 0</wrench>
+          <wrench>-0.000648 0.001183 -196.169 0 -0 0</wrench>
         </link>
       </model>
       <model name='closet'>
@@ -961,20 +951,20 @@
         </link>
       </model>
       <model name='dining_chair'>
-        <pose frame=''>0.84506 -3.04768 0.01 0 -0 0</pose>
+        <pose frame=''>0.851004 -3.17646 0.01 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>0.84506 -3.04768 0.01 0 -0 0</pose>
+          <pose frame=''>0.851004 -3.17646 0.01 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='dining_chair_clone'>
-        <pose frame=''>1.22453 -1.22007 0.01 0 -0 3.12384</pose>
+        <pose frame=''>1.20754 -1.50599 0.01 0 -0 3.12384</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>1.22453 -1.22007 0.01 0 -0 3.12384</pose>
+          <pose frame=''>1.20754 -1.50599 0.01 0 -0 3.12384</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -1041,10 +1031,10 @@
         </link>
       </model>
       <model name='kitchen_table'>
-        <pose frame=''>0.620276 -2.90341 0 0 -0 0</pose>
+        <pose frame=''>0.620276 -3.08231 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>0.620276 -2.90341 0 0 -0 0</pose>
+          <pose frame=''>0.620276 -3.08231 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -1081,10 +1071,10 @@
         </link>
       </model>
       <model name='male03bis'>
-        <pose frame=''>-3.78496 8.16429 0.010904 0.012572 0.002298 0.000165</pose>
+        <pose frame=''>-4.51373 8.16417 0.010902 0.01255 0.00231 0.000166</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-3.78496 8.16429 0.010904 0.012572 0.002298 0.000165</pose>
+          <pose frame=''>-4.51373 8.16417 0.010902 0.01255 0.00231 0.000166</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 -196.2 0 -0 0</wrench>
@@ -1277,7 +1267,7 @@
         </link>
       </model>
       <light name='male03bislight'>
-        <pose frame=''>-3.79059 8.1409 1.5 0 -0 0</pose>
+        <pose frame=''>-4.45706 8.1409 1.5 0 -0 0</pose>
       </light>
       <light name='male03light'>
         <pose frame=''>-4.18003 2.23478 1.6 0 -0 0</pose>
@@ -2061,56 +2051,6 @@
       </link>
       <pose frame=''>1.10095 5.06745 0 0 -0 0</pose>
     </model>
-    <model name='bar'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='colision1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <bounce/>
-            <friction>
-              <ode/>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <contact>
-              <ode/>
-            </contact>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/FlatBlack</name>
-            </script>
-          </material>
-        </visual>
-        <velocity_decay>
-          <linear>0</linear>
-          <angular>0</angular>
-        </velocity_decay>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose frame=''>-2.36351 6.105 0 0 -0 0</pose>
-    </model>
     <model name='posters_yellow'>
       <static>1</static>
       <link name='link'>
@@ -2511,106 +2451,6 @@
       </link>
       <pose frame=''>4.92995 1.36009 0 0 0 -1.59228</pose>
     </model>
-    <model name='bar_0'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='colision1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <bounce/>
-            <friction>
-              <ode/>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <contact>
-              <ode/>
-            </contact>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/FlatBlack</name>
-            </script>
-          </material>
-        </visual>
-        <velocity_decay>
-          <linear>0</linear>
-          <angular>0</angular>
-        </velocity_decay>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose frame=''>1.58237 0.662718 0 0 -0 0</pose>
-    </model>
-    <model name='bar_1'>
-      <static>1</static>
-      <link name='link'>
-        <collision name='colision1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <bounce/>
-            <friction>
-              <ode/>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <contact>
-              <ode/>
-            </contact>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='visual1'>
-          <pose frame=''>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://bar/meshes/freestand_bar.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/FlatBlack</name>
-            </script>
-          </material>
-        </visual>
-        <velocity_decay>
-          <linear>0</linear>
-          <angular>0</angular>
-        </velocity_decay>
-        <self_collide>0</self_collide>
-        <kinematic>0</kinematic>
-        <gravity>1</gravity>
-      </link>
-      <pose frame=''>1.82622 0.383489 0 0 -0 0</pose>
-    </model>
     <model name='poster_blue'>
       <static>1</static>
       <link name='link'>
@@ -2860,6 +2700,106 @@
         <gravity>1</gravity>
       </link>
       <pose frame=''>-1.37382 0.722052 0.01 0 -0 0</pose>
+    </model>
+    <model name='bar1'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='colision1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://bar1/meshes/bar.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://bar1/meshes/bar.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>-3.13357 5.85639 0 0 -0 0</pose>
+    </model>
+    <model name='bar2'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='colision1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://bar2/meshes/bar.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual1'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://bar2/meshes/bar.stl</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>1.14799 0.268586 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>

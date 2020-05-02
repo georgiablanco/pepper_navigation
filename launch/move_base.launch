@@ -1,23 +1,51 @@
 <launch>
   <!-- Arguments -->
-  <arg name="cmd_vel_topic" default="pepper/cmd_vel" />
-  <arg name="odom_topic" default="/pepper/odom" />
+  <arg name="cmd_vel_topic" default="/pepper/cmd_vel" />
+<!--  <arg name="odom_topic" default="/pepper/odom" />-->
   <arg name="scan_topic" default="/pepper/laser_2"/>
-  <arg name="move_forward_only" default="false"/>
+<!--  <arg name="map_topic" default="/movebase_map"/>-->
+
+    <!-- Different global planner params-->
+  <arg name="global_planner" default="global_planner/GlobalPlanner"/>
+<!--  <arg name="global_planner" default="ompl_global_planner/OmplGlobalPlanner"/>-->
+  <arg name="global_planner_params" default="global_planner_params"/>
+
+    <!-- Different local planner params-->
+<!--  <arg name="local_planner" default="base_local_planner/TrajectoryPlannerROS"/>-->
+  <arg name="local_planner" default="dwa_local_planner/DWAPlannerROS"/>
+<!--  <arg name="local_planner" default="teb_local_planner/TebLocalPlannerROS"/>-->
+<!--  <arg name="local_planner" default="eband_local_planner/EBandPlannerROS"/>-->
+
+
+  <!-- Run the map server for MOVE_BASE map -->
+  <node name="planner_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant_door1/2D_gmap.yaml"/>
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-<!--    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />-->
+    <param name="base_local_planner" value="$(arg local_planner)"/>
+    <param name="base_global_planner" value="$(arg global_planner)"/>
+
+    <param name="footprint_padding" value="0.05" />
+    <param name="controller_frequency" value="10.0" />
+    <param name="controller_patience" value="5.0" />
+    <param name="planner_patience" value="3.0" />
+    <param name="planner_frequency" value="0.5" />
+    <param name="/use_sim_time" value="true"/>
+
     <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find pepper_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find pepper_navigation)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find pepper_navigation)/param/move_base_params.yaml" command="load" />
-    <rosparam file="$(find pepper_navigation)/param/traj_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find pepper_navigation)/param/local_planner_params.yaml" command="load" />
+<!--    <rosparam file="$(find pepper_navigation)/param/move_base_params.yaml" command="load" />-->
+<!--    <rosparam file="$(find pepper_navigation)/param/$(arg global_planner_params).yaml" command="load" />-->
+
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
-<!--    <remap from="odom" to="$(arg odom_topic)"/>-->
-<!--    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />-->
+
   </node>
+
+<!--  <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_movebase.rviz"/>-->
+
 </launch>
 
 
