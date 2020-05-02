@@ -22,32 +22,48 @@
  *
  */
 
+ /***************** EDITED BY GEORGIA BLANCO-LITCHFIELD *****************/
+ /*********** FOR USE WITH PEPPER_NAVGIATION PACKAGE AND MAPS ***********/
+
+
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <ctime>
 
 /** function declarations **/
-bool moveToGoal(double xGoal, double yGoal);
+bool moveToGoal(double xGoal, double yGoal, double oGoal);
 char choose();
 
-/** declare the coordinates of interest **/
-double xRoom1A = -0.92;
-double yRoom1A = 6.67;
-double xRoom1B = -0.92;
-double yRoom1B = 6.67;
-double xRoom2A = 27.70 ;
-double yRoom2A = 13.50;
-double xRoom2B = 27.70 ;
-double yRoom2B = 13.50;
-double xRoom3A = 30.44 ;
-double yRoom3A = 13.50;
-double xRoom3B = 30.44 ;
-double yRoom3B = 13.50;
-double xRoom4A = 35.20 ;
-double yRoom4A = 13.50;
-double xRoom4B = 35.20 ;
-double yRoom4B = 13.50;
+/** Restaurant poses and orientations of interest **/
+//Restaurant 1
+double xRoom1A = -3.06;
+double yRoom1A = 2.36;
+double oRoom1A = 1.00;
+double xRoom1B = 2.57;
+double yRoom1B = -3.57;
+double oRoom1B = 0.04;
+//Restaurant 2
+double xRoom2A = -0.92;
+double yRoom2A = 6.67;
+double oRoom2A = 0.04;
+double xRoom2B = 0.50;
+double yRoom2B = -3.61;
+double oRoom2B = 1.00;
+//Restaurant 3
+double xRoom3A = -1.36;
+double yRoom3A = 8.26;
+double oRoom3A = 0.04;
+double xRoom3B = 4.56;
+double yRoom3B = 1.29;
+double oRoom3B = 0.50;
+//Restaurant 4
+double xRoom4A = -2.50;
+double yRoom4A = 7.94;
+double oRoom4A = -1.00;
+double xRoom4B = -2.72;
+double yRoom4B = -4.57;
+double oRoom4B = 0.04;
 
 bool goalReached = false;
 
@@ -62,21 +78,21 @@ int main(int argc, char** argv){
 	do{
 		choice =choose();
 		if (choice == '0'){
-			goalReached = moveToGoal(xRoom1A, yRoom1A);
+			goalReached = moveToGoal(xRoom1A, yRoom1A, oRoom1A);
 		}else if (choice == '1'){
-			goalReached = moveToGoal(xRoom1B, yRoom1B);
+			goalReached = moveToGoal(xRoom1B, yRoom1B, oRoom1B);
 		}else if (choice == '2'){
-			goalReached = moveToGoal(xRoom2A, yRoom2A);
+			goalReached = moveToGoal(xRoom2A, yRoom2A, oRoom2A);
 		}else if (choice == '3'){
-			goalReached = moveToGoal(xRoom2B, yRoom2B);
+			goalReached = moveToGoal(xRoom2B, yRoom2B, oRoom2B);
 		}else if (choice == '4'){
-			goalReached = moveToGoal(xRoom3A, yRoom3A);
+			goalReached = moveToGoal(xRoom3A, yRoom3A, oRoom3A);
 		}else if (choice == '5'){
-			goalReached = moveToGoal(xRoom3B, yRoom3B);
+			goalReached = moveToGoal(xRoom3B, yRoom3B, oRoom3B);
 		}else if (choice == '6'){
-			goalReached = moveToGoal(xRoom4A, yRoom4A);
+			goalReached = moveToGoal(xRoom4A, yRoom4A, oRoom4A);
 		}else if (choice == '7'){
-			goalReached = moveToGoal(xRoom4B, yRoom4B);
+			goalReached = moveToGoal(xRoom4B, yRoom4B, oRoom4B);
 		}
 		if (choice!='q'){
 			if (goalReached){
@@ -92,7 +108,7 @@ int main(int argc, char** argv){
 	return 0;
 }
 
-bool moveToGoal(double xGoal, double yGoal){
+bool moveToGoal(double xGoal, double yGoal, double oGoal){
 
 	//define a client for to send goal requests to the move_base server through a SimpleActionClient
 	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
@@ -115,8 +131,8 @@ bool moveToGoal(double xGoal, double yGoal){
 	goal.target_pose.pose.position.z =  0.0;
 	goal.target_pose.pose.orientation.x = 0.0;
 	goal.target_pose.pose.orientation.y = 0.0;
-	goal.target_pose.pose.orientation.z = 0.0;
-	goal.target_pose.pose.orientation.w = 1.0;
+	goal.target_pose.pose.orientation.z = oGoal;
+	goal.target_pose.pose.orientation.w = 1.00;
 
 	ROS_INFO("Sending goal location ...");
 	ac.sendGoal(goal);
@@ -131,7 +147,7 @@ bool moveToGoal(double xGoal, double yGoal){
 	}
 	else{
 	    float execution_time = time(0) - start;
-		ROS_INFO("The robot failed to reach the destination in % seconds!", execution_time);
+		ROS_INFO("The robot failed to reach the destination in %f seconds!", execution_time);
 		return false;
 	}
 
@@ -148,7 +164,7 @@ char choose(){
 	std::cout<<"|'4': Restaurant 3 Goal A"<<std::endl;
 	std::cout<<"|'5': Restaurant 3 Goal B"<<std::endl;
 	std::cout<<"|'6': Restaurant 4 Goal A"<<std::endl;
-	std::cout<<"|'7': Restaurant 5 Goal B"<<std::endl;
+	std::cout<<"|'7': Restaurant 4 Goal B"<<std::endl;
 	std::cout<<"|'q': Quit "<<std::endl;
 	std::cout<<"|-------------------------------|"<<std::endl;
 	std::cout<<"|WHERE TO GO?";

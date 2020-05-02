@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     # pybullet.setAdditionalSearchPath(pybullet_data.getDataPath())
     urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/restaurant.urdf")
-    urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/restaurant2.urdf")
+    urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/bullet_restaurant2.urdf")
     # urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables.urdf")
 
     # sdf = pybullet.loadSDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables1.sdf")

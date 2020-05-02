@@ -18,7 +18,7 @@
 
 
   <!-- Run the map server for MOVE_BASE map -->
-  <node name="planner_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant_door1/2D_octomap.yaml"/>
+  <node name="planner_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant3/2D_octomap.yaml"/>
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">

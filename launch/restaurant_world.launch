@@ -7,7 +7,7 @@
   <env name="GAZEBO_MODEL_PATH" value="$(find pepper_gazebo_plugin)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-	<arg name="world_name" value="$(find pepper_navigation)/worlds/restaurant_door1.world"/>
+	<arg name="world_name" value="$(find pepper_navigation)/worlds/restaurant3.world"/>
     <arg name="paused" value="false"/>
   </include>
 
