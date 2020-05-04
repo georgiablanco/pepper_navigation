@@ -3,7 +3,7 @@
 <!--    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" args="0 0 0 0 0 0 map odom 100" />-->
 
     <!-- Run Map Server for AMCL-->
-    <node name="amcl_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant3/2D_gmap.yaml">
+    <node name="amcl_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant1/2D_gmap.yaml">
         <remap from="/map" to="/amcl_map"/>
     </node>
 
@@ -17,8 +17,8 @@
         <param name="base_frame_id" value="base_footprint" />
 <!--        <param name="odom_frame_id" value="/pepper/odom" />-->
         <param name="odom_model_type" value="omni" />
-    <!--    <param name="initial_pose_x" value="-26.408" />-->
-    <!--    <param name="initial_pose_y" value="2.064" />-->
+        <param name="initial_pose_x" value="-2.43726288991" />
+        <param name="initial_pose_y" value="-5.45665589274" />
     <!--    <param name="initial_pose_a" value="0.4890" />-->
   </node>
 

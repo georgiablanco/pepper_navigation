@@ -1,0 +1,80 @@
+#TrajectoryPlannerROS:
+#  max_vel_x: 0.35
+#  min_vel_x: 0.1
+#  max_vel_theta: 1.0
+#  min_in_place_vel_theta: 0.4
+#
+#  sim_time: 4.0
+#
+#  acc_lim_theta: 0.75
+#  acc_lim_x: 0.35
+#  acc_lim_y: 0.35
+#
+#  holonomic_robot: true
+
+TrajectoryPlannerROS:
+  acc_lim_th: 5.8 # as roughly estimated on Ranger2
+  acc_lim_x: 1.0 # as roughly estimated on Ranger2
+  acc_lim_y: 0.0
+
+  # values estimated for Ranger2
+  max_vel_theta: 1.5
+  min_vel_theta: 0.06
+
+  min_in_place_vel_theta: 0.2
+  max_vel_x: 0.3
+  min_vel_x: 0.05
+  max_vel_y: 0.3
+  min_vel_y: 0.05
+
+  holonomic_robot: true
+
+  yaw_goal_tolerance: 0.26
+  xy_goal_tolerance: 0.2
+
+  sim_time: 4.0
+
+  vtheta_samples: 40
+  vx_samples: 20
+
+  # Trajectory scoring parameters
+  dwa: false
+
+  pdist_scale: 1.6
+  gdist_scale: 1.0
+  occdist_scale: 0.02
+
+  heading_scoring: false
+  heading_scoring_timestep: 0.8
+
+#TrajectoryPlannerROS:
+#  max_vel_x: 0.35
+#  min_vel_x: 0.1
+#  min_val_theta: -0.5
+#  max_vel_theta: 0.5
+#  min_in_place_vel_theta: 0.4
+#  escape_vel: 0.01
+#
+#  acc_lim_theta: 0.75
+#  acc_lim_x: 0.35
+#  acc_lim_y: 0.0
+#
+#  holonomic_robot: false
+#
+#  yaw_goal_tolerance: 0.26
+#  xy_goal_tolerance: 0.2
+#
+#  sim_time: 4.0
+#
+#  vtheta_samples: 40
+#  vx_samples: 20
+#
+#  # Trajectory scoring parameters
+#  dwa: false
+#
+#  pdist_scale: 1.6
+#  gdist_scale: 1.0
+#  occdist_scale: 0.02
+#
+#  heading_scoring: false
+#  heading_scoring_timestep: 0.8

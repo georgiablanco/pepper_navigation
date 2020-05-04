@@ -17,38 +17,47 @@
 #include <ctime>
 
 /** function declarations **/
-bool moveToGoal(double xGoal, double yGoal, double oGoal);
+bool moveToGoal(double xGoal, double yGoal, double oGoal, double owGoal);
 char choose();
 
 /** Restaurant poses and orientations of interest **/
 //Restaurant 1
-double xRoom1A = -3.06;
+double xRoom1A = -3.16;
 double yRoom1A = 2.36;
-double oRoom1A = 1.00;
+double ozRoom1A = 0.387;
+double owRoom1A = 0.55;
 double xRoom1B = 2.57;
 double yRoom1B = -3.57;
-double oRoom1B = 0.04;
+double ozRoom1B = -1.00;
+double owRoom1B = 0.00;
 //Restaurant 2
 double xRoom2A = -0.92;
 double yRoom2A = 6.67;
-double oRoom2A = 0.04;
-double xRoom2B = 0.50;
-double yRoom2B = -3.61;
-double oRoom2B = 1.00;
+double ozRoom2A = -1.00;
+double owRoom2A = 0.01;
+double xRoom2B = -3.37;
+double yRoom2B = -1.29;
+double owRoom2B = 1.00;
+double ozRoom2B = 0.00;
 //Restaurant 3
-double xRoom3A = -1.36;
-double yRoom3A = 8.26;
-double oRoom3A = 0.04;
-double xRoom3B = 4.56;
-double yRoom3B = 1.29;
-double oRoom3B = 0.50;
+double xRoom3A = -1.02;
+double yRoom3A = 7.87;
+double ozRoom3A = -0.02;
+double owRoom3A = 0.96;
+double xRoom3B = 1.47;
+double yRoom3B = 1.605;
+double ozRoom3B = -0.7;
+double owRoom3B = 0.68;
 //Restaurant 4
-double xRoom4A = -2.50;
-double yRoom4A = 7.94;
-double oRoom4A = -1.00;
-double xRoom4B = -2.72;
-double yRoom4B = -4.57;
-double oRoom4B = 0.04;
+double xRoom4A = -2.59;
+double yRoom4A = 7.76;
+double ozRoom4A = -1.00;
+double owRoom4A = 0.18;
+double xRoom4B = 4.386;
+double yRoom4B = 0.756;
+double owRoom4B = 0.84;
+double ozRoom4B = 0.53;
+
 
 bool goalReached = false;
 
@@ -63,23 +72,23 @@ int main(int argc, char** argv){
 	do{
 		choice = choose();
 		if (choice == '0'){
-			goalReached = moveToGoal(0.0, 0.0, 0.0);
+			goalReached = moveToGoal(-2.437, -5.333, 0.00, 1.00);
 		}else if (choice == '1'){
-			goalReached = moveToGoal(xRoom1A, yRoom1A, oRoom1A);
+			goalReached = moveToGoal(xRoom1A, yRoom1A, ozRoom1A, owRoom1A);
 		}else if (choice == '2'){
-			goalReached = moveToGoal(xRoom1B, yRoom1B, oRoom1B);
+			goalReached = moveToGoal(xRoom1B, yRoom1B, ozRoom1B, ozRoom1B);
 		}else if (choice == '3'){
-			goalReached = moveToGoal(xRoom2A, yRoom2A, oRoom2A);
+			goalReached = moveToGoal(xRoom2A, yRoom2A, ozRoom2A, owRoom2A);
 		}else if (choice == '4'){
-			goalReached = moveToGoal(xRoom2B, yRoom2B, oRoom2B);
+			goalReached = moveToGoal(xRoom2B, yRoom2B, ozRoom2B, owRoom2B);
 		}else if (choice == '5'){
-			goalReached = moveToGoal(xRoom3A, yRoom3A, oRoom3A);
+			goalReached = moveToGoal(xRoom3A, yRoom3A, ozRoom3A, owRoom3A);
 		}else if (choice == '6'){
-			goalReached = moveToGoal(xRoom3B, yRoom3B, oRoom3B);
+			goalReached = moveToGoal(xRoom3B, yRoom3B, ozRoom3B, owRoom3B);
 		}else if (choice == '7'){
-			goalReached = moveToGoal(xRoom4A, yRoom4A, oRoom4A);
+			goalReached = moveToGoal(xRoom4A, yRoom4A, ozRoom4A, owRoom4A);
 		}else if (choice == '8'){
-			goalReached = moveToGoal(xRoom4B, yRoom4B, oRoom4B);
+			goalReached = moveToGoal(xRoom4B, yRoom4B, ozRoom4B, owRoom4B);
 		}
 		if (choice!='q'){
 			if (goalReached){
@@ -95,7 +104,7 @@ int main(int argc, char** argv){
 	return 0;
 }
 
-bool moveToGoal(double xGoal, double yGoal, double oGoal){
+bool moveToGoal(double xGoal, double yGoal, double ozGoal, double owGoal){
 
 	//define a client for to send goal requests to the move_base server through a SimpleActionClient
 	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
@@ -118,8 +127,9 @@ bool moveToGoal(double xGoal, double yGoal, double oGoal){
 	goal.target_pose.pose.position.z =  0.0;
 	goal.target_pose.pose.orientation.x = 0.0;
 	goal.target_pose.pose.orientation.y = 0.0;
-	goal.target_pose.pose.orientation.z = oGoal;
-	goal.target_pose.pose.orientation.w = 1.00;
+	goal.target_pose.pose.orientation.z = ozGoal;
+	goal.target_pose.pose.orientation.w = owGoal;
+
 
 	ROS_INFO("Sending goal location ...");
 	ac.sendGoal(goal);
@@ -144,7 +154,7 @@ char choose(){
 	char choice='q';
 	std::cout<<"|-------------------------------|"<<std::endl;
 	std::cout<<"|PRESS A KEY TO CHOOSE RESTAURANT & GOAL:"<<std::endl;
-	std::cout<<"|'0': Return to Home (0,0)"<<std::endl;
+	std::cout<<"|'0': Return to Home"<<std::endl;
 	std::cout<<"|'1': Restaurant 1 Goal A"<<std::endl;
 	std::cout<<"|'2': Restaurant 1 Goal B"<<std::endl;
 	std::cout<<"|'3': Restaurant 2 Goal A"<<std::endl;

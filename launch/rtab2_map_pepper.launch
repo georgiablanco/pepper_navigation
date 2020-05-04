@@ -1,0 +1,91 @@
+<!--LAUNCH FOR PEPPER GAZEBO RESTAURANT 4-->
+<launch>
+    <arg name="localisation" default="false"/>
+    <arg name="database_path" default="rtabmap_restaurant4.db"/>
+
+  <group ns="rtabmap">
+
+    <!-- Use RGBD synchronization -->
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
+        <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>
+        <remap from="depth/image"     to="/pepper/camera/depth/image_raw"/>
+        <remap from="rgb/camera_info" to="/pepper/camera/front/camera_info"/>
+        <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
+
+      <!-- Should be true for not synchronized camera topics
+           (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
+        <param name="approx_sync"       value="true"/>
+    </node>
+
+<!--    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="&#45;&#45;delete_db_on_start">-->
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">
+        <remap from="odom" to="/pepper/odom"/>
+<!--        <remap from="scan" to="/pepper/laser_2"/>-->
+<!--          <remap from="scan" to="/kinect_scan"/>-->
+<!--          <remap from="scan_cloud" to="/pepper/camera/depth/points"/>-->
+<!--          <remap from="rgbd_image" to="/pepper/camera/depth/image_raw"/>-->
+        <remap from="rgbd_image" to="rgbd_image"/>
+  <!--          <remap from="depth/image" to="/pepper/camera/depth/image_raw"/>-->
+
+        <param name="database_path" type="string" value="$(arg database_path)"/>
+        <param name="frame_id" type="string" value="base_footprint"/>
+        <param name="subscribe_depth" type="bool" value="false"/>
+        <param name="subscribe_rgbd" type="bool" value="true"/>
+<!--        <param name="subscribe_scan" type="bool" value="false"/>-->
+<!--        <param name="subscribe_scan_cloud" type="bool" value="false"/>-->
+        <param name="queue_size" type="int" value="10"/>
+
+          <!-- RTAB-Map's parameters -->
+        <param name="RGBD/NeighborLinkRefining" type="string" value="true"/>
+        <param name="RGBD/ProximityBySpace"     type="string" value="true"/>
+        <param name="RGBD/AngularUpdate"        type="string" value="0.05"/>
+        <param name="RGBD/LinearUpdate"         type="string" value="0.05"/>
+        <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+
+        <param name="Rtabmap/DetectionRate" value="0" />
+        <param name="Rtabmap/ImagesAlreadyRectified" value="true" />
+
+<!--        <param name="Grid/FromDepth" type="string" value="true"/> &lt;!&ndash; occupancy grid from lidar &ndash;&gt;-->
+<!--        <param name="Grid/NoiseFilteringRadius" value="0.05"/>-->
+<!--        <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>-->
+<!--        <param name="Grid/MaxObstacleHeight" value="1.3"/>-->
+<!--        <param name="Grid/FromDepth" value="true"/>-->
+
+        <!-- Filter obstacle cells surrounded by empty space. Used for grid_map and proj_map published topics. -->
+        <param name="GridGlobal/Eroded" value="true" />
+        <param name="GridGlobal/FootprintHeight" value="1.6" />
+        <param name="GridGlobal/FootprintLength" value="0.6" />
+        <param name="GridGlobal/FootprintWidth" value="0.6" />
+        <param name="GridGlobal/MinSize" value="20.0" />
+        <param name="Grid/MinGroundHeight" value="0.3" />
+        <param name="Grid/MaxObstacleHeight" value="1.4" />
+        <param name="Grid/MinClusterSize" value="15" />
+        <param name="Grid/RangeMax" value="4.0" />
+        <param name="Grid/RayTracing" value="true" />
+        <!-- max cluster radius -->
+        <param name="Grid/ClusterRadius" value="0.5" />
+        <param name="Grid/CellSize" value="0.05" />
+
+
+        <param name="Vis/MaxDepth" value="4.0" />
+
+        <param if="$(arg localisation)" name="Mem/IncrementalMemory" type="string" value="false"/>
+        <param if="$(arg localisation)" name="Mem/InitWMWithAllNodes" type="string" value="true"/>
+        <param if="$(arg localisation)" name="RGBD/SavedLocalizationIgnored" type="string" value="true"/>
+
+
+        <param name="Reg/Force3DoF"             type="string" value="true"/>
+        <param name="Reg/Strategy"              type="string" value="0"/>
+
+          <!-- ICP parameters -->
+        <param name="Icp/VoxelSize"                 type="string" value="0.05"/>
+        <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>
+
+
+    </node>
+  </group>
+
+  <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_rtabmap.rviz"/>
+
+
+</launch>

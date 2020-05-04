@@ -20,8 +20,6 @@ if __name__ == "__main__":
     urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/bullet_restaurant2.urdf")
     # urdf = pybullet.loadURDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables.urdf")
 
-    # sdf = pybullet.loadSDF("/home/georgiablanco/catkin_ws/src/pepper_navigation/worlds/samurai_tables1.sdf")
-
     wrap = PepperRosWrapper()
     # wrap.launchWrapper(pepper, "/naoqi_driver")
     wrap.launchWrapper(pepper, "/pepper")

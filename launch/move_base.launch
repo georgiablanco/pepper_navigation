@@ -26,17 +26,17 @@
     <param name="base_global_planner" value="$(arg global_planner)"/>
 
     <param name="footprint_padding" value="0.05" />
-    <param name="controller_frequency" value="10.0" />
+    <param name="controller_frequency" value="20.0" />
     <param name="controller_patience" value="5.0" />
     <param name="planner_patience" value="3.0" />
     <param name="planner_frequency" value="0.5" />
     <param name="/use_sim_time" value="true"/>
 
-    <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find pepper_navigation)/param/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find pepper_navigation)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find pepper_navigation)/param/local_planner_params.yaml" command="load" />
+    <rosparam file="$(find pepper_navigation)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find pepper_navigation)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find pepper_navigation)/params/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find pepper_navigation)/params/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find pepper_navigation)/params/local_planner_params.yaml" command="load" />
 <!--    <rosparam file="$(find pepper_navigation)/param/move_base_params.yaml" command="load" />-->
 <!--    <rosparam file="$(find pepper_navigation)/param/$(arg global_planner_params).yaml" command="load" />-->
 
