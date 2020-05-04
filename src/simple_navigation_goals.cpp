@@ -4,22 +4,7 @@
  * Copyright (c) 2016
  * All rights reserved.
  *
- * License Type: GNU GPL
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
  *   Program: Map-Based Navigation
- *
  */
 
  /***************** EDITED BY GEORGIA BLANCO-LITCHFIELD *****************/
@@ -76,22 +61,24 @@ int main(int argc, char** argv){
 
 	char choice = 'q';
 	do{
-		choice =choose();
+		choice = choose();
 		if (choice == '0'){
-			goalReached = moveToGoal(xRoom1A, yRoom1A, oRoom1A);
+			goalReached = moveToGoal(0.0, 0.0, 0.0);
 		}else if (choice == '1'){
-			goalReached = moveToGoal(xRoom1B, yRoom1B, oRoom1B);
+			goalReached = moveToGoal(xRoom1A, yRoom1A, oRoom1A);
 		}else if (choice == '2'){
-			goalReached = moveToGoal(xRoom2A, yRoom2A, oRoom2A);
+			goalReached = moveToGoal(xRoom1B, yRoom1B, oRoom1B);
 		}else if (choice == '3'){
-			goalReached = moveToGoal(xRoom2B, yRoom2B, oRoom2B);
+			goalReached = moveToGoal(xRoom2A, yRoom2A, oRoom2A);
 		}else if (choice == '4'){
-			goalReached = moveToGoal(xRoom3A, yRoom3A, oRoom3A);
+			goalReached = moveToGoal(xRoom2B, yRoom2B, oRoom2B);
 		}else if (choice == '5'){
-			goalReached = moveToGoal(xRoom3B, yRoom3B, oRoom3B);
+			goalReached = moveToGoal(xRoom3A, yRoom3A, oRoom3A);
 		}else if (choice == '6'){
-			goalReached = moveToGoal(xRoom4A, yRoom4A, oRoom4A);
+			goalReached = moveToGoal(xRoom3B, yRoom3B, oRoom3B);
 		}else if (choice == '7'){
+			goalReached = moveToGoal(xRoom4A, yRoom4A, oRoom4A);
+		}else if (choice == '8'){
 			goalReached = moveToGoal(xRoom4B, yRoom4B, oRoom4B);
 		}
 		if (choice!='q'){
@@ -157,14 +144,15 @@ char choose(){
 	char choice='q';
 	std::cout<<"|-------------------------------|"<<std::endl;
 	std::cout<<"|PRESS A KEY TO CHOOSE RESTAURANT & GOAL:"<<std::endl;
-	std::cout<<"|'0': Restaurant 1 Goal A"<<std::endl;
-	std::cout<<"|'1': Restaurant 1 Goal B"<<std::endl;
-	std::cout<<"|'2': Restaurant 2 Goal A"<<std::endl;
-	std::cout<<"|'3': Restaurant 2 Goal B"<<std::endl;
-	std::cout<<"|'4': Restaurant 3 Goal A"<<std::endl;
-	std::cout<<"|'5': Restaurant 3 Goal B"<<std::endl;
-	std::cout<<"|'6': Restaurant 4 Goal A"<<std::endl;
-	std::cout<<"|'7': Restaurant 4 Goal B"<<std::endl;
+	std::cout<<"|'0': Return to Home (0,0)"<<std::endl;
+	std::cout<<"|'1': Restaurant 1 Goal A"<<std::endl;
+	std::cout<<"|'2': Restaurant 1 Goal B"<<std::endl;
+	std::cout<<"|'3': Restaurant 2 Goal A"<<std::endl;
+	std::cout<<"|'4': Restaurant 2 Goal B"<<std::endl;
+	std::cout<<"|'5': Restaurant 3 Goal A"<<std::endl;
+	std::cout<<"|'6': Restaurant 3 Goal B"<<std::endl;
+	std::cout<<"|'7': Restaurant 4 Goal A"<<std::endl;
+	std::cout<<"|'8': Restaurant 4 Goal B"<<std::endl;
 	std::cout<<"|'q': Quit "<<std::endl;
 	std::cout<<"|-------------------------------|"<<std::endl;
 	std::cout<<"|WHERE TO GO?";
