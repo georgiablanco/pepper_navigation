@@ -7,7 +7,7 @@
   <env name="GAZEBO_MODEL_PATH" value="$(find pepper_gazebo_plugin)/models:$(optenv GAZEBO_MODEL_PATH)"/>
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-	<arg name="world_name" value="$(find pepper_navigation)/worlds/restaurant1.world"/>
+	<arg name="world_name" value="$(find pepper_navigation)/worlds/restaurant3.world"/>
     <arg name="paused" value="false"/>
   </include>
 
@@ -26,10 +26,14 @@
 <!--  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"-->
 <!--        args="-param robot_description -urdf -x -0.5 -y 1 -z 0.05 -model pepper_MP"/>-->
   <node name="lower_arms" pkg="pepper_gazebo_plugin" type="arms_down.sh" output="screen" />
+  <node name="lower_head" pkg="pepper_navigation" type="head_down.sh" output="screen" />
+
 
   <node name="laser_publisher" pkg="pepper_gazebo_plugin" type="laser_publisher.py"/>
 
-    <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_mapping1.rviz"/>
+<!--    <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_mapping1.rviz"/>-->
+
+  <param name="/use_sim_time" value="true"/>
 
 
 </launch>

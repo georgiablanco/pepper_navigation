@@ -1,36 +1,31 @@
 <launch>
+
   <!-- Arguments -->
   <arg name="cmd_vel_topic" default="/pepper/cmd_vel" />
 <!--  <arg name="odom_topic" default="/pepper/odom" />-->
   <arg name="scan_topic" default="/pepper/laser_2"/>
 <!--  <arg name="map_topic" default="/movebase_map"/>-->
 
-    <!-- Different global planner params-->
+    <!-- Gobal planner Selection-->
   <arg name="global_planner" default="global_planner/GlobalPlanner"/>
-<!--  <arg name="global_planner" default="ompl_global_planner/OmplGlobalPlanner"/>-->
-  <arg name="global_planner_params" default="global_planner_params"/>
 
-    <!-- Different local planner params-->
+    <!-- Local planner Selection-->
 <!--  <arg name="local_planner" default="base_local_planner/TrajectoryPlannerROS"/>-->
 <!--  <arg name="local_planner" default="dwa_local_planner/DWAPlannerROS"/>-->
-  <arg name="local_planner" default="teb_local_planner/TebLocalPlannerROS"/>
-<!--  <arg name="local_planner" default="eband_local_planner/EBandPlannerROS"/>-->
+<!--  <arg name="local_planner" default="teb_local_planner/TebLocalPlannerROS"/>-->
+  <arg name="local_planner" default="eband_local_planner/EBandPlannerROS"/>
 
 
   <!-- Run the map server for MOVE_BASE map -->
-  <node name="planner_map_server" pkg="map_server" type="map_server" args="$(find pepper_navigation)/maps/restaurant3/2D_octomap.yaml"/>
+  <node name="planner_map_server" pkg="map_server" type="map_server"
+        args="$(find pepper_navigation)/maps/restaurant4/2D_octomap.yaml"/>
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="$(arg local_planner)"/>
     <param name="base_global_planner" value="$(arg global_planner)"/>
 
-    <param name="footprint_padding" value="0.05" />
-    <param name="controller_frequency" value="20.0" />
-    <param name="controller_patience" value="5.0" />
-    <param name="planner_patience" value="3.0" />
-    <param name="planner_frequency" value="0.5" />
-    <param name="/use_sim_time" value="true"/>
+    <param name="controller_frequency" value="5.0" />
 
     <rosparam file="$(find pepper_navigation)/params/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find pepper_navigation)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -38,8 +33,9 @@
     <rosparam file="$(find pepper_navigation)/params/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find pepper_navigation)/params/local_planner_params.yaml" command="load" />
 <!--    <rosparam file="$(find pepper_navigation)/param/move_base_params.yaml" command="load" />-->
-<!--    <rosparam file="$(find pepper_navigation)/param/$(arg global_planner_params).yaml" command="load" />-->
+    <rosparam file="$(find pepper_navigation)/params/global_planner_params.yaml" command="load" />
 
+    <remap from="odom" to="/pepper/odom"/>
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
 
   </node>
@@ -47,46 +43,3 @@
 <!--  <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_movebase.rviz"/>-->
 
 </launch>
-
-
-<!--&lt;!&ndash;-->
-<!--    ROS navigation stack with velocity smoother and safety (reactive) controller-->
-<!--&ndash;&gt;-->
-<!--<launch>-->
-<!--&lt;!&ndash;  <include file="$(find pepper_navigation)/launch/includes/velocity_smoother.launch.xml"/>&ndash;&gt;-->
-<!--&lt;!&ndash;  <include file="$(find pepper_navigation)/launch/includes/safety_controller.launch.xml"/>&ndash;&gt;-->
-
-<!--  <arg name="odom_frame_id"   default="odom"/>-->
-<!--  <arg name="base_frame_id"   default="base_link"/>-->
-<!--  <arg name="global_frame_id" default="map"/>-->
-<!--  <arg name="odom_topic" default="odom" />-->
-<!--  <arg name="laser_topic" default="/naoqi_driver/laser" />-->
-<!--&lt;!&ndash;  <arg name="custom_param_file" default="$(find pepper_navigation)/param/dummy.yaml"/>&ndash;&gt;-->
-
-
-<!--  <node pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen" />-->
-
-
-<!--  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">-->
-<!--    <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />-->
-<!--    <rosparam file="$(find pepper_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />-->
-<!--    <rosparam file="$(find pepper_navigation)/param/local_costmap_params.yaml" command="load" />-->
-<!--    <rosparam file="$(find pepper_navigation)/param/global_costmap_params.yaml" command="load" />-->
-<!--    <rosparam file="$(find pepper_navigation)/param/dwa_local_planner_params.yaml" command="load" />-->
-<!--&lt;!&ndash;    <rosparam file="$(find pepper_navigation)/param/move_base_params.yaml" command="load" />&ndash;&gt;-->
-<!--&lt;!&ndash;    <rosparam file="$(find pepper_navigation)/param/global_planner_params.yaml" command="load" />&ndash;&gt;-->
-<!--&lt;!&ndash;    <rosparam file="$(find pepper_navigation)/param/navfn_global_planner_params.yaml" command="load" />&ndash;&gt;-->
-<!--    &lt;!&ndash; external param file that could be loaded into the move_base namespace &ndash;&gt;-->
-<!--&lt;!&ndash;    <rosparam file="$(arg custom_param_file)" command="load" />&ndash;&gt;-->
-
-<!--    &lt;!&ndash; reset frame_id parameters using user input data &ndash;&gt;-->
-<!--    <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>-->
-<!--    <param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>-->
-<!--    <param name="local_costmap/global_frame" value="$(arg odom_frame_id)"/>-->
-<!--    <param name="local_costmap/robot_base_frame" value="$(arg base_frame_id)"/>-->
-<!--    <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame_id)"/>-->
-
-<!--    <remap from="odom" to="$(arg odom_topic)"/>-->
-<!--    <remap from="scan" to="$(arg laser_topic)"/>-->
-<!--  </node>-->
-<!--</launch>-->
