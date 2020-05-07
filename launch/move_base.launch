@@ -12,13 +12,13 @@
     <!-- Local planner Selection-->
 <!--  <arg name="local_planner" default="base_local_planner/TrajectoryPlannerROS"/>-->
 <!--  <arg name="local_planner" default="dwa_local_planner/DWAPlannerROS"/>-->
-<!--  <arg name="local_planner" default="teb_local_planner/TebLocalPlannerROS"/>-->
-  <arg name="local_planner" default="eband_local_planner/EBandPlannerROS"/>
+  <arg name="local_planner" default="teb_local_planner/TebLocalPlannerROS"/>
+<!--  <arg name="local_planner" default="eband_local_planner/EBandPlannerROS"/>-->
 
 
   <!-- Run the map server for MOVE_BASE map -->
   <node name="planner_map_server" pkg="map_server" type="map_server"
-        args="$(find pepper_navigation)/maps/restaurant4/2D_octomap.yaml"/>
+        args="$(find pepper_navigation)/maps/restaurant3/2D_octomap.yaml"/>
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">

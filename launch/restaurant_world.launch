@@ -21,10 +21,10 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
   <!-- Spawn a robot into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-    args="-param robot_description -urdf -x -3 -y -4.5 -z 0.05 -model pepper_MP" />
 <!--  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"-->
-<!--        args="-param robot_description -urdf -x -0.5 -y 1 -z 0.05 -model pepper_MP"/>-->
+<!--    args="-param robot_description -urdf -x -3 -y -4.5 -z 0.05 -model pepper_MP" />-->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -x -0.5 -y 1 -z 0.05 -model pepper_MP"/>
   <node name="lower_arms" pkg="pepper_gazebo_plugin" type="arms_down.sh" output="screen" />
   <node name="lower_head" pkg="pepper_navigation" type="head_down.sh" output="screen" />
 
