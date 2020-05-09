@@ -45,15 +45,17 @@ DWAPlannerROS:
   ## Robot Parameters at
   acc_lim_th: 0.6
   acc_lim_x: 0.5
-  acc_lim_y: 0.5
+  acc_lim_y: 0.0
 
   max_rot_vel: 0.5
   min_rot_vel: -0.5
 
   max_vel_x: 0.35
   min_vel_x: 0.05
-  max_vel_y: 0.35
-  min_vel_y: 0.05
+#  max_vel_y: 0.35
+#  min_vel_y: 0.05
+  max_vel_y: 0.0
+  min_vel_y: 0.0
   max_trans_vel: 0.3
   min_trans_vel: 0.05
 
@@ -66,7 +68,7 @@ DWAPlannerROS:
   #The amount of time to forward-simulate trajectories in seconds
   sim_time: 1.0
   vx_samples: 20
-  vy_samples: 15
+  vy_samples: 0
   vth_samples: 40
 
   penalize_negative_x: false # for DWA planner only

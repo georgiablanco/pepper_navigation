@@ -1,11 +1,15 @@
 <!--LAUNCH FOR PEPPER GAZEBO RESTAURANT 3-->
 <launch>
     <arg name="localisation" default="true"/>
-    <arg name="database_path" default="rtabmap_restaurant3a.db"/>
+<!--     can be rtabmap_restaurant3/rtabmap_restaurant3a.db or rtabmap_restaurant4/rtabmap_restaurant4.db-->
+    <arg name="database_path" default="rtabmap_restaurant3/rtabmap_restaurant3a.db"/>
+    <param name="/use_sim_time" value="true"/>
+
+    <!-- Used for rosbag with compressed rgb images -->
+<!--    <node name="repub_color_raw" pkg="image_transport"  type="republish"               output="screen"-->
+<!--          args="compressed in:=/pepper/camera/front/image_raw raw out:=/pepper/camera/front/image_raw"/>-->
 
   <group ns="rtabmap">
-<!--    <node name="repub_color_raw"           pkg="image_transport"  type="republish"-->
-<!--            output="screen" args="compressedDepth in:=/pepper/camera/front/compressed/image_raw raw out:=/pepper/camera/front/image_raw"/>-->
     <!-- Use RGBD synchronization -->
     <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
         <remap from="rgb/image"       to="/pepper/camera/front/image_raw"/>
@@ -18,12 +22,6 @@
         <param name="approx_sync"       value="true"/>
     </node>
 
-    <!-- Odometry -->
-<!--    <node pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen">-->
-<!--        <param name="subscribe_rgbd" type="bool"   value="true"/>-->
-<!--        <param name="frame_id"       type="string" value="base_footprint"/>-->
-<!--        <remap from="rgbd_image" to="rgbd_image"/>-->
-<!--    </node>-->
 
 <!--    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="&#45;&#45;delete_db_on_start">-->
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">
@@ -57,22 +55,14 @@
 <!--        <param name="Icp/VoxelSize"                 type="string" value="0.05"/>-->
 <!--        <param name="Icp/MaxCorrespondenceDistance" type="string" value="0.1"/>-->
 
-<!--        <param name="Vis/MaxDepth" value="1.4" />-->
-
-<!--        <param name="Grid/FromDepth" type="string" value="true"/> &lt;!&ndash; occupancy grid from lidar &ndash;&gt;-->
-<!--        <param name="Grid/NoiseFilteringRadius" value="0.05"/>-->
-<!--        <param name="Grid/NoiseFilteringMinNeighbors" value="2"/>-->
-<!--        <param name="Grid/MaxObstacleHeight" value="1.3"/>-->
-<!--        <param name="Grid/FromDepth" value="true"/>-->
 
         <!-- Filter obstacle cells surrounded by empty space. Used for grid_map and proj_map published topics. -->
-<!--        <param name="Grid/FromDepth"                type="string" value="true"/>-->
+        <param name="Grid/FromDepth"                type="string" value="true"/>
         <param name="GridGlobal/Eroded"             value="true" />
         <param name="GridGlobal/FootprintHeight"    value="1.6" />
         <param name="GridGlobal/FootprintLength"    value="0.6" />
         <param name="GridGlobal/FootprintWidth"     value="0.6" />
         <param name="GridGlobal/MinSize"            value="20.0" />
-<!--        <param name="Grid/MinGroundHeight"          value="0.1" />-->
         <param name="Grid/MaxObstacleHeight"        value="1.4" />
         <param name="Grid/MinClusterSize"           value="15" />
         <param name="Grid/RangeMax"                 value="4.0" />
@@ -92,5 +82,4 @@
   </group>
 
   <node pkg="rviz" type="rviz" name="pepper_rviz" args="-d $(find pepper_navigation)/rviz/pepper_rtabmap.rviz"/>
-
 </launch>
