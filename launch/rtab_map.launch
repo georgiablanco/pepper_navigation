@@ -1,8 +1,8 @@
-<!--LAUNCH FOR PEPPER GAZEBO RESTAURANT 3-->
 <launch>
-    <arg name="localisation" default="true"/>
-<!--     can be rtabmap_restaurant3/rtabmap_restaurant3a.db or rtabmap_restaurant4/rtabmap_restaurant4.db-->
-    <arg name="database_path" default="rtabmap_restaurant3/rtabmap_restaurant3a.db"/>
+    <arg name="localisation" default="false"/>
+
+    <!--     Database path can be specified for each environment-->
+    <arg name="database_path" default="rtabmap.db"/>
     <param name="/use_sim_time" value="true"/>
 
     <!-- Used for rosbag with compressed rgb images -->
