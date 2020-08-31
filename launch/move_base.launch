@@ -5,7 +5,7 @@
 <!--  <arg name="odom_topic" default="/pepper/odom" />-->
   <arg name="scan_topic" default="/pepper/laser_2"/>
 
-    <!-- Gobal planner Selection-->
+    <!-- Gobal planner Selection -->
   <arg name="global_planner" default="global_planner/GlobalPlanner"/>
 
     <!-- Local planner Selection-->
