@@ -4,7 +4,7 @@
 
     <!-- Run Map Server for AMCL-->
     <node name="amcl_map_server" pkg="map_server" type="map_server"
-          args="$(find pepper_navigation)/maps/restaurant4/2D_gmap.yaml">
+          args="$(find pepper_navigation)/maps/restaurant3/2D_gmap.yaml">
         <remap from="/map" to="/amcl_map"/>
     </node>
 

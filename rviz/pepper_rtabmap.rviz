@@ -339,7 +339,7 @@ Visualization Manager:
       Color Transformer: RGB8
       Download graph: false
       Download map: false
-      Enabled: true
+      Enabled: false
       Filter ceiling (m): 0
       Filter floor (m): 0
       Invert Rainbow: false
@@ -358,10 +358,10 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Class: rtabmap_ros/MapGraph
-      Enabled: true
+      Enabled: false
       Global loop closure: 255; 0; 0
       Local loop closure: 255; 255; 0
       Merged neighbor: 255; 170; 0
@@ -370,23 +370,23 @@ Visualization Manager:
       Topic: /rtabmap/mapGraph
       Unreliable: false
       User: 255; 0; 0
-      Value: true
+      Value: false
       Virtual: 255; 0; 255
     - Alpha: 0.699999988
       Class: rviz/Map
       Color Scheme: costmap
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
       Topic: /move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 255; 170; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
       Length: 0.300000012
@@ -404,12 +404,12 @@ Visualization Manager:
       Shaft Length: 0.100000001
       Topic: /move_base/GlobalPlanner/plan
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 255; 0; 255
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
       Length: 0.300000012
@@ -425,14 +425,14 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /move_base/TrajectoryPlannerROS/local_plan
+      Topic: /move_base/TebLocalPlannerROS/global_plan
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 25; 255; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
       Length: 0.300000012
@@ -448,9 +448,9 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /move_base/TrajectoryPlannerROS/global_plan
+      Topic: /move_base/TebLocalPlannerROS/local_plan
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 0.699999988
       Class: rviz/Map
       Color Scheme: map
