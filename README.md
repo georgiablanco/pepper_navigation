@@ -6,11 +6,14 @@ Report can be found here: https://www.researchgate.net/publication/341508891_Hum
 
 This is a demonstration of how safe and efficient navigation was achieved using SoftBanks Pepper robot; 2D and 3D SLAM were used in combination with 2D path planning to produce a 2.5D navigation
 pipeline. This was completed inside the Robot Operating System (ROS) framework.  
-
+  
+# 3D octomap
 ![alt text](https://github.com/georgiablanco/pepper_navigation/blob/master/octo3D.png)  
+
+# RTABMAP SIFT Descriptors
 ![alt text](https://github.com/georgiablanco/pepper_navigation/blob/master/rtabmap_view1.png)  
 
-
+# Explaination
 Navigation in hospitality is explored using consideration of environmental variables in the third dimension. It
 was determined that this consideration is crucial for safe and efficient navigation for a humanoid robot of
 Pepper’s size by exploring path planning in series of restaurant environments with open and cluttered areas,
