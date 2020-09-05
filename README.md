@@ -2,7 +2,7 @@
 Restaurant navigation using the Pepper Robot
 
 This repo shows code from my disseration HRI and Navigation in hospitality.
-Report can be found here: https://www.researchgate.net/publication/341508891_Human-Robot_Interaction_and_Navigation_in_Hospitality
+[The report can be found here.](https://www.researchgate.net/publication/341508891_Human-Robot_Interaction_and_Navigation_in_Hospitality)  
 
 This is a demonstration of how safe and efficient navigation was achieved using SoftBanks Pepper robot; 2D and 3D SLAM were used in combination with 2D path planning to produce a 2.5D navigation
 pipeline. This was completed inside the Robot Operating System (ROS) framework.  
